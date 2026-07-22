@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Подтверждение резерва — B2B Dealer Portal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #ffffff;
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #e8eaed;
+    --text-primary: #1a1d23;
+    --text-secondary: #5f6368;
+    --text-tertiary: #9aa0a6;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-light: #eff6ff;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --orange: #ea580c;
+    --orange-bg: #fff7ed;
+    --orange-border: #fed7aa;
+    --gray-bg: #f3f4f6;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 8px;
+    --radius-pill: 100px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px; height: 64px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; color: inherit; }
+  .header-logo .logo-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+  .header-logo .company-name { font-weight: 700; font-size: 16px; letter-spacing: -0.3px; }
+  .header-search { flex: 1; max-width: 480px; position: relative; }
+  .header-search input { width: 100%; height: 40px; padding: 0 16px 0 40px; border: 1px solid var(--border); border-radius: var(--radius-pill); font-size: 14px; font-family: inherit; background: var(--bg); outline: none; }
+  .header-search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); background: var(--white); }
+  .header-search .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
+  .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.15s; position: relative; }
+  .icon-btn:hover { background: var(--bg); }
+  .icon-btn .badge { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; border: 2px solid var(--white); }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px; cursor: pointer; }
+
+  /* ── BREADCRUMBS ── */
+  .breadcrumbs { max-width: 1120px; margin: 0 auto; padding: 16px 40px; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-tertiary); }
+  .breadcrumbs a { color: var(--text-secondary); text-decoration: none; }
+  .breadcrumbs a:hover { color: var(--accent); }
+  .breadcrumbs .current { color: var(--text-primary); font-weight: 500; }
+
+  /* ── PAGE ── */
+  .page { max-width: 1120px; margin: 0 auto; padding: 0 40px 80px; }
+
+  .page-header { margin-bottom: 32px; }
+  .page-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .page-header .subtitle { font-size: 15px; color: var(--text-secondary); }
+
+  .layout { display: grid; grid-template-columns: 1fr 380px; gap: 28px; }
+  .main-col { display: flex; flex-direction: column; gap: 24px; }
+
+  /* ── CARDS ── */
+  .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 28px; box-shadow: var(--shadow); }
+  .card-title { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .card-title .ct-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--bg); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+
+  /* ── PRODUCT SUMMARY ── */
+  .product-summary { display: flex; gap: 20px; }
+  .ps-image { width: 140px; height: 105px; border-radius: var(--radius-sm); background: var(--gray-bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+  .ps-image svg { opacity: 0.3; }
+  .ps-info { flex: 1; }
+  .ps-name { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+  .ps-sku { font-size: 13px; color: var(--text-tertiary); margin-bottom: 12px; }
+  .ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ps-item { display: flex; flex-direction: column; gap: 1px; }
+  .ps-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-tertiary); font-weight: 500; }
+  .ps-item .value { font-size: 14px; font-weight: 600; }
+  .ps-item .value.price { color: var(--orange); }
+  .ps-item .value.stock { color: var(--green); }
+
+  /* ── DETAILS TABLE ── */
+  .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .detail-item { display: flex; flex-direction: column; gap: 3px; }
+  .detail-item .label { font-size: 12px; color: var(--text-tertiary); }
+  .detail-item .value { font-size: 14px; font-weight: 500; }
+
+  /* ── TIMELINE ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
+  .timeline-step { display: flex; align-items: flex-start; gap: 16px; padding: 12px 0; position: relative; }
+  .timeline-step .step-dot { position: absolute; left: -32px; top: 14px; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); background: var(--white); display: flex; align-items: center; justify-content: center; z-index: 1; }
+  .timeline-step .step-dot svg { width: 12px; height: 12px; display: none; }
+  .timeline-step.completed .step-dot { border-color: var(--green); background: var(--green); }
+  .timeline-step.completed .step-dot svg { display: block; color: white; }
+  .timeline-step.active .step-dot { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 4px rgba(37,99,235,0.15); }
+  .timeline-step.active .step-dot svg { display: block; color: white; }
+  .timeline-step.active .step-dot::after { content: ''; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+  .timeline-step.pending .step-dot { border-color: var(--border); background: var(--white); }
+  .timeline-step .step-content { flex: 1; }
+  .timeline-step .step-title { font-size: 14px; font-weight: 500; }
+  .timeline-step.pending .step-title { color: var(--text-tertiary); }
+  .timeline-step .step-time { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 96px; align-self: start; }
+
+  .reserve-total { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 28px; box-shadow: var(--shadow); }
+  .reserve-total .rt-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); font-weight: 600; margin-bottom: 8px; }
+  .reserve-total .rt-amount { font-size: 36px; font-weight: 700; color: var(--orange); letter-spacing: -1px; margin-bottom: 4px; }
+  .reserve-total .rt-amount .cur { font-size: 20px; font-weight: 600; }
+  .reserve-total .rt-note { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
+  .reserve-total .rt-divider { height: 1px; background: var(--border); margin: 16px 0; }
+  .reserve-total .rt-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+  .reserve-total .rt-row .label { color: var(--text-secondary); }
+  .reserve-total .rt-row .value { font-weight: 600; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 24px; border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+  .btn-lg { height: 52px; width: 100%; }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 4px 14px rgba(37,99,235,0.35); }
+  .btn-secondary { background: var(--bg); color: var(--text-primary); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: #f1f3f4; }
+  .btn-ghost { background: transparent; color: var(--text-secondary); padding: 0 16px; height: 40px; font-size: 13px; font-weight: 500; }
+  .btn-ghost:hover { color: var(--accent); background: var(--accent-light); }
+
+  .actions-row { display: flex; gap: 8px; margin-top: 12px; }
+
+  .validity-badge { display: flex; align-items: center; gap: 8px; padding: 12px 16px; background: var(--orange-bg); border: 1px solid var(--orange-border); border-radius: var(--radius-xs); margin-top: 16px; }
+  .validity-badge .vb-icon { color: var(--orange); flex-shrink: 0; }
+  .validity-badge .vb-text { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+  .validity-badge .vb-text strong { color: var(--text-primary); }
+
+  /* ── ERP BADGE ── */
+  .erp-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: var(--green-bg); border: 1px solid var(--green-border); border-radius: var(--radius-pill); font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: 20px; }
+  .erp-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+
+  /* ── SUCCESS STATE ── */
+  .success-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 200; align-items: center; justify-content: center; }
+  .success-overlay.visible { display: flex; }
+  .success-card { background: var(--white); border-radius: 20px; padding: 48px; max-width: 480px; width: 90%; text-align: center; box-shadow: var(--shadow-lg); animation: scaleIn 0.3s ease; }
+  @keyframes scaleIn { from{transform:scale(0.95);opacity:0} to{transform:scale(1);opacity:1} }
+  .success-icon { width: 72px; height: 72px; border-radius: 50%; background: var(--green-bg); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+  .success-icon svg { color: var(--green); }
+  .success-card h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .success-card .success-subtitle { font-size: 15px; color: var(--text-secondary); margin-bottom: 24px; }
+  .success-card .success-number { display: inline-block; padding: 8px 20px; background: var(--gray-bg); border-radius: var(--radius-sm); font-size: 18px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 16px; }
+  .success-card .success-validity { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; color: var(--orange); font-weight: 500; margin-bottom: 28px; }
+  .success-card .success-actions { display: flex; gap: 12px; justify-content: center; }
+
+  .ico { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ico-sm { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ico-lg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  @media (max-width: 1000px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <a href="index.html" class="header-logo">
+    <div class="logo-icon">DP</div>
+    <span class="company-name">Dealer Portal</span>
+  </a>
+  <div class="header-search">
+    <svg class="search-icon ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Поиск товаров…">
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" title="Уведомления">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="badge"></span>
+    </button>
+    <div class="avatar">АК</div>
+  </div>
+</header>
+
+<!-- ═══ BREADCRUMBS ═══ -->
+<nav class="breadcrumbs">
+  <a href="index.html">Каталог</a>
+  <span>/</span>
+  <a href="product.html">Металлочерепица Ламонтерра NormanMP</a>
+  <span>/</span>
+  <span class="current">Подтверждение резерва</span>
+</nav>
+
+<!-- ═══ PAGE ═══ -->
+<main class="page">
+  <div class="page-header">
+    <h1>Подтверждение резерва</h1>
+    <p class="subtitle">Проверьте данные и подтвердите резервирование товара</p>
+  </div>
+
+  <div class="layout">
+    <div class="main-col">
+
+      <!-- ── PRODUCT SUMMARY ── -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg></span>
+          Товар
+        </h2>
+        <div class="erp-badge"><span class="dot"></span> Данные из 1С ERP · синхронизировано</div>
+        <div class="product-summary">
+          <div class="ps-image">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+          </div>
+          <div class="ps-info">
+            <div class="ps-name">Металлочерепица Ламонтерра NormanMP 0.5 мм</div>
+            <div class="ps-sku">Артикул: MП-ЛМН-NMP-050 · Код 1С: 320817 · RAL 8017</div>
+            <div class="ps-grid">
+              <div class="ps-item"><span class="label">Дилерская цена</span><span class="value price">790 ₽/м²</span></div>
+              <div class="ps-item"><span class="label">На складе</span><span class="value stock">1 240 м²</span></div>
+              <div class="ps-item"><span class="label">Категория</span><span class="value">Кровля</span></div>
+              <div class="ps-item"><span class="label">Покрытие</span><span class="value">NormanMP®</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── RESERVATION DETAILS ── -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
+          Детали резерва
+        </h2>
+        <div class="details-grid">
+          <div class="detail-item"><span class="label">Номер резерва</span><span class="value">РЗВ-2026-07-0482</span></div>
+          <div class="detail-item"><span class="label">Дата создания</span><span class="value">23.07.2026, 00:28</span></div>
+          <div class="detail-item"><span class="label">Компания дилера</span><span class="value">ООО «СтройМаркет»</span></div>
+          <div class="detail-item"><span class="label">Контактное лицо</span><span class="value">Алексей Кузнецов</span></div>
+          <div class="detail-item"><span class="label">Закреплённый менеджер</span><span class="value">Михаил Иванов</span></div>
+          <div class="detail-item"><span class="label">Склад отгрузки</span><span class="value">Москва, ул. Промышленная, 12</span></div>
+        </div>
+      </section>
+
+      <!-- ── TIMELINE ── -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+          Статус резерва
+        </h2>
+        <div class="timeline">
+          <div class="timeline-step completed">
+            <div class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="step-content">
+              <div class="step-title">Резерв создан</div>
+              <div class="step-time">23.07.2026, 00:28</div>
+            </div>
+          </div>
+          <div class="timeline-step completed">
+            <div class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="step-content">
+              <div class="step-title">Отправлено в 1С ERP</div>
+              <div class="step-time">23.07.2026, 00:28</div>
+            </div>
+          </div>
+          <div class="timeline-step active">
+            <div class="step-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="4"/></svg></div>
+            <div class="step-content">
+              <div class="step-title">Ожидает подтверждения менеджером</div>
+              <div class="step-time">Ожидание…</div>
+            </div>
+          </div>
+          <div class="timeline-step pending">
+            <div class="step-dot"></div>
+            <div class="step-content">
+              <div class="step-title">Подтверждено</div>
+              <div class="step-time">—</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar">
+      <div class="reserve-total">
+        <div class="rt-label">Итого по резерву</div>
+        <div class="rt-amount">79 000 <span class="cur">₽</span></div>
+        <div class="rt-note">100 м² × 790 ₽/м²</div>
+
+        <div class="rt-divider"></div>
+
+        <div class="rt-row"><span class="label">Количество</span><span class="value">100 м²</span></div>
+        <div class="rt-row"><span class="label">Цена за единицу</span><span class="value">790 ₽</span></div>
+        <div class="rt-row"><span class="label">НДС</span><span class="value">Включён</span></div>
+        <div class="rt-row"><span class="label">Самовывоз</span><span class="value">от 48 ч</span></div>
+
+        <div class="rt-divider"></div>
+
+        <button class="btn btn-primary btn-lg" id="confirmBtn" onclick="confirmReservation()">
+          <svg class="ico" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Подтвердить резерв
+        </button>
+
+        <div class="validity-badge">
+          <div class="vb-icon"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div class="vb-text">После подтверждения менеджером резерв действителен <strong>3 дня</strong>. Статус отслеживается в разделе «Счета».</div>
+        </div>
+
+        <div class="actions-row">
+          <a href="index.html" class="btn btn-ghost" style="flex:1">
+            <svg class="ico-sm" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            В каталог
+          </a>
+          <a href="product.html" class="btn btn-ghost" style="flex:1">
+            <svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Товар
+          </a>
+          <button class="btn btn-ghost" style="flex:1">
+            <svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Менеджер
+          </button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- ═══ SUCCESS OVERLAY ═══ -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-card">
+    <div class="success-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>Резерв подтверждён</h2>
+    <p class="success-subtitle">Запрос отправлен менеджеру. Ожидайте подтверждения.</p>
+    <div class="success-number">РЗВ-2026-07-0482</div>
+    <div class="success-validity">
+      <svg class="ico-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Резерв действителен 3 дня после подтверждения
+    </div>
+    <div class="success-actions">
+      <a href="index.html" class="btn btn-secondary" style="height:44px;font-size:14px">
+        <svg class="ico-sm" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        В каталог
+      </a>
+      <button class="btn btn-primary" style="height:44px;font-size:14px" onclick="document.getElementById('successOverlay').classList.remove('visible')">
+        <svg class="ico-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Перейти к счетам
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function confirmReservation() {
+    const btn = document.getElementById('confirmBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<svg class="ico" viewBox="0 0 24 24" style="animation:spin 1s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Отправка в 1С…';
+
+    // Simulate ERP call
+    setTimeout(() => {
+      // Update timeline
+      const steps = document.querySelectorAll('.timeline-step');
+      steps[2].classList.remove('active');
+      steps[2].classList.add('completed');
+      steps[2].querySelector('.step-dot').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+      steps[2].querySelector('.step-time').textContent = '23.07.2026, 00:30';
+
+      steps[3].classList.remove('pending');
+      steps[3].classList.add('active');
+
+      // Show success
+      document.getElementById('successOverlay').classList.add('visible');
+
+      btn.disabled = false;
+      btn.innerHTML = '<svg class="ico" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Подтвердить резерв';
+    }, 2000);
+  }
+</script>
+
+<style>
+  @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+</style>
+
+</body>
+</html>

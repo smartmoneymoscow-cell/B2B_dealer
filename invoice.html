@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Счёт СЧТ-2026-07-0481 — B2B Dealer Portal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #ffffff;
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #e8eaed;
+    --text-primary: #1a1d23;
+    --text-secondary: #5f6368;
+    --text-tertiary: #9aa0a6;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-light: #eff6ff;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --orange: #ea580c;
+    --orange-bg: #fff7ed;
+    --orange-border: #fed7aa;
+    --red: #dc2626;
+    --gray-bg: #f3f4f6;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 8px;
+    --radius-pill: 100px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px; height: 64px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; color: inherit; }
+  .header-logo .logo-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+  .header-logo .company-name { font-weight: 700; font-size: 16px; letter-spacing: -0.3px; }
+  .header-spacer { flex: 1; }
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.15s; position: relative; }
+  .icon-btn:hover { background: var(--bg); }
+  .icon-btn .badge { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; border: 2px solid var(--white); }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px; cursor: pointer; }
+
+  /* ── PAGE ── */
+  .page { max-width: 1120px; margin: 0 auto; padding: 24px 40px 80px; }
+
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-secondary); text-decoration: none; margin-bottom: 20px; transition: color 0.15s; }
+  .back-link:hover { color: var(--accent); }
+
+  /* ── INVOICE HEADER ── */
+  .invoice-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 32px; }
+  .ih-left h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+  .ih-left .ih-date { font-size: 14px; color: var(--text-secondary); }
+  .ih-right { display: flex; align-items: center; gap: 12px; }
+  .status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 600; }
+  .status-badge.awaiting { background: var(--orange-bg); color: var(--orange); }
+  .status-badge.paid { background: var(--green-bg); color: var(--green); }
+  .status-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 16px; height: 38px; border: none; border-radius: var(--radius-xs); font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-outline { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+  /* ── LAYOUT ── */
+  .layout { display: grid; grid-template-columns: 1fr 280px; gap: 28px; }
+  .main-col { display: flex; flex-direction: column; gap: 24px; }
+
+  .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 28px; box-shadow: var(--shadow); }
+  .card-title { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .card-title .ct-icon { width: 28px; height: 28px; border-radius: 7px; background: var(--bg); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+
+  /* ── COMPANIES ── */
+  .companies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .company-block .cb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); font-weight: 600; margin-bottom: 12px; }
+  .company-block .cb-name { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .company-block .cb-row { display: flex; gap: 8px; padding: 4px 0; font-size: 13px; }
+  .company-block .cb-row .label { color: var(--text-tertiary); min-width: 80px; flex-shrink: 0; }
+  .company-block .cb-row .value { color: var(--text-primary); font-weight: 500; }
+
+  /* ── TABLE ── */
+  .invoice-table { width: 100%; border-collapse: collapse; }
+  .invoice-table th { text-align: left; padding: 10px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); font-weight: 600; border-bottom: 2px solid var(--border); }
+  .invoice-table th:last-child, .invoice-table td:last-child { text-align: right; }
+  .invoice-table td { padding: 14px 12px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .invoice-table tr:last-child td { border-bottom: none; }
+  .invoice-table .product-cell { display: flex; align-items: center; gap: 12px; }
+  .invoice-table .product-cell .pc-thumb { width: 44px; height: 36px; border-radius: 6px; background: var(--gray-bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .invoice-table .product-cell .pc-thumb svg { opacity: 0.3; }
+  .invoice-table .product-cell .pc-info .name { font-weight: 500; margin-bottom: 1px; }
+  .invoice-table .product-cell .pc-info .sku { font-size: 11px; color: var(--text-tertiary); }
+  .invoice-table .amount { font-weight: 600; }
+
+  /* ── SUMMARY ── */
+  .summary-block { display: flex; justify-content: flex-end; }
+  .summary-table { width: 320px; }
+  .summary-table .row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; }
+  .summary-table .row .label { color: var(--text-secondary); }
+  .summary-table .row .value { font-weight: 600; }
+  .summary-table .row.total { padding: 14px 0 0; margin-top: 8px; border-top: 2px solid var(--text-primary); }
+  .summary-table .row.total .label { font-weight: 700; color: var(--text-primary); font-size: 15px; }
+  .summary-table .row.total .value { font-weight: 700; font-size: 20px; color: var(--orange); }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 96px; align-self: start; }
+  .sidebar-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow); }
+  .sidebar-card .sc-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); font-weight: 600; margin-bottom: 16px; }
+  .sidebar-card .sc-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .sidebar-card .sc-row:last-child { border-bottom: none; }
+  .sidebar-card .sc-row .label { font-size: 13px; color: var(--text-secondary); }
+  .sidebar-card .sc-row .value { font-size: 13px; font-weight: 600; }
+  .sidebar-card .sc-row .value.link { color: var(--accent); cursor: pointer; }
+  .sidebar-card .sc-row .value.link:hover { text-decoration: underline; }
+  .sidebar-card .sc-row .value.green { color: var(--green); }
+  .sidebar-card .sc-row .value.orange { color: var(--orange); }
+
+  .sidebar-card .sc-manager { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+  .sidebar-card .sc-manager .scm-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #f093fb, #f5576c); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px; }
+  .sidebar-card .sc-manager .scm-name { font-size: 14px; font-weight: 600; }
+  .sidebar-card .sc-manager .scm-role { font-size: 12px; color: var(--text-tertiary); }
+
+  .sidebar-actions { display: flex; flex-direction: column; gap: 8px; }
+  .sidebar-actions .btn { width: 100%; height: 40px; }
+
+  .ico { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ico-sm { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .erp-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: var(--green-bg); border: 1px solid var(--green-border); border-radius: var(--radius-pill); font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: 16px; }
+  .erp-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  @media (max-width: 1000px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .companies-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <a href="index.html" class="header-logo">
+    <div class="logo-icon">DP</div>
+    <span class="company-name">Dealer Portal</span>
+  </a>
+  <div class="header-spacer"></div>
+  <div class="header-actions">
+    <button class="icon-btn" title="Уведомления">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="badge"></span>
+    </button>
+    <div class="avatar">АК</div>
+  </div>
+</header>
+
+<!-- ═══ PAGE ═══ -->
+<main class="page">
+  <a href="invoices.html" class="back-link">
+    <svg class="ico-sm" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Назад к счетам
+  </a>
+
+  <div class="erp-badge"><span class="dot"></span> Счёт из 1С ERP · сформирован автоматически</div>
+
+  <div class="invoice-header">
+    <div class="ih-left">
+      <h1>СЧТ-2026-07-0481</h1>
+      <div class="ih-date">от 22 июля 2026 г.</div>
+    </div>
+    <div class="ih-right">
+      <span class="status-badge awaiting"><span class="dot"></span> Ожидает оплаты</span>
+      <button class="btn btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
+      <button class="btn btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> Печать</button>
+      <button class="btn btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="main-col">
+
+      <!-- ── COMPANIES ── -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+          Реквизиты
+        </h2>
+        <div class="companies-grid">
+          <div class="company-block">
+            <div class="cb-label">Поставщик</div>
+            <div class="cb-name">ООО «ДилерПортал»</div>
+            <div class="cb-row"><span class="label">ИНН</span><span class="value">7701234567</span></div>
+            <div class="cb-row"><span class="label">КПП</span><span class="value">770101001</span></div>
+            <div class="cb-row"><span class="label">ОГРН</span><span class="value">1177746012345</span></div>
+            <div class="cb-row"><span class="label">Адрес</span><span class="value">127015, г. Москва, ул. Промышленная, д. 12, стр. 1</span></div>
+            <div class="cb-row"><span class="label">Телефон</span><span class="value">+7 (495) 123-45-67</span></div>
+            <div class="cb-row"><span class="label">Email</span><span class="value">info@dealerportal.ru</span></div>
+          </div>
+          <div class="company-block">
+            <div class="cb-label">Покупатель</div>
+            <div class="cb-name">ООО «СтройМаркет»</div>
+            <div class="cb-row"><span class="label">ИНН</span><span class="value">7805678901</span></div>
+            <div class="cb-row"><span class="label">КПП</span><span class="value">780501001</span></div>
+            <div class="cb-row"><span class="label">ОГРН</span><span class="value">1187847012345</span></div>
+            <div class="cb-row"><span class="label">Адрес</span><span class="value">196158, г. Санкт-Петербург, пр. Южный, д. 45, оф. 12</span></div>
+            <div class="cb-row"><span class="label">Телефон</span><span class="value">+7 (812) 987-65-43</span></div>
+            <div class="cb-row"><span class="label">Email</span><span class="value">zakupki@stroymarket.ru</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── TABLE ── -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg></span>
+          Товары и услуги
+        </h2>
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Наименование</th>
+              <th>Кол-во</th>
+              <th>Ед.</th>
+              <th>Цена</th>
+              <th>НДС</th>
+              <th>Сумма</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>
+                <div class="product-cell">
+                  <div class="pc-thumb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div>
+                  <div class="pc-info">
+                    <div class="name">Металлочерепица Ламонтерра NormanMP 0.5 мм, RAL 8017</div>
+                    <div class="sku">MП-ЛМН-NMP-050 · Код 1С: 320817</div>
+                  </div>
+                </div>
+              </td>
+              <td>100</td>
+              <td>м²</td>
+              <td>790,00</td>
+              <td>20%</td>
+              <td class="amount">79 000,00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="summary-block">
+          <div class="summary-table">
+            <div class="row"><span class="label">Сумма без НДС</span><span class="value">65 833,33 ₽</span></div>
+            <div class="row"><span class="label">НДС 20%</span><span class="value">13 166,67 ₽</span></div>
+            <div class="row total"><span class="label">Итого к оплате</span><span class="value">79 000,00 ₽</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── PAYMENT INFO ── -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>
+          Оплата
+        </h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div>
+            <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:4px">Способ оплаты</div>
+            <div style="font-size:14px;font-weight:500">Банковский перевод</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:4px">Срок оплаты</div>
+            <div style="font-size:14px;font-weight:500">до 29.07.2026</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:4px">Расчётный счёт</div>
+            <div style="font-size:14px;font-weight:500;font-family:monospace">40702810123456789012</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:4px">Банк</div>
+            <div style="font-size:14px;font-weight:500">ПАО Сбербанк</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:4px">БИК</div>
+            <div style="font-size:14px;font-weight:500;font-family:monospace">044525225</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--text-tertiary);margin-bottom:4px">Корр. счёт</div>
+            <div style="font-size:14px;font-weight:500;font-family:monospace">30101810400000000225</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sc-title">Резерв</div>
+        <div class="sc-row"><span class="label">Номер</span><span class="value link">РЗВ-2026-07-0481</span></div>
+        <div class="sc-row"><span class="label">Дата</span><span class="value">22.07.2026</span></div>
+        <div class="sc-row"><span class="label">Статус</span><span class="value green">Подтверждён</span></div>
+        <div class="sc-row"><span class="label">Действует до</span><span class="value orange">25.07.2026</span></div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sc-title">Менеджер</div>
+        <div class="sc-manager">
+          <div class="scm-avatar">МИ</div>
+          <div>
+            <div class="scm-name">Михаил Иванов</div>
+            <div class="scm-role">Персональный менеджер</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-actions">
+        <a href="invoices.html" class="btn btn-outline" style="justify-content:center">
+          <svg class="ico-sm" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Все счета
+        </a>
+        <a href="product.html" class="btn btn-outline" style="justify-content:center">
+          <svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Товар
+        </a>
+      </div>
+    </aside>
+  </div>
+</main>
+
+</body>
+</html>

@@ -144,8 +144,8 @@
   .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 4px 14px rgba(37,99,235,0.35); }
   .btn-secondary { background: var(--bg); color: var(--text-primary); border: 1px solid var(--border); }
   .btn-secondary:hover { background: #f1f3f4; }
-  .btn-ghost { background: transparent; color: var(--text-secondary); padding: 0 16px; height: 40px; font-size: 13px; font-weight: 500; }
-  .btn-ghost:hover { color: var(--accent); background: var(--accent-light); }
+  .btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: transparent; color: var(--text-secondary); padding: 0 16px; height: 40px; font-size: 13px; font-weight: 500; border: 1px solid var(--border); border-radius: var(--radius-xs); text-decoration: none; white-space: nowrap; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+  .btn-ghost:hover { color: var(--accent); background: var(--accent-light); border-color: var(--accent); }
 
   .actions-row { display: flex; gap: 8px; margin-top: 12px; }
 
@@ -327,7 +327,7 @@
           <div class="vb-text">После подтверждения менеджером резерв действителен <strong>3 дня</strong>. Статус отслеживается в разделе «Счета».</div>
         </div>
 
-        <div class="actions-row">
+        <div class="actions-row" style="display:flex;gap:8px;margin-top:12px">
           <a href="index.html" class="btn btn-ghost" style="flex:1">
             <svg class="ico-sm" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
             В каталог
@@ -336,10 +336,10 @@
             <svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             Товар
           </a>
-          <button class="btn btn-ghost" style="flex:1">
+          <a href="#" class="btn btn-ghost" style="flex:1">
             <svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             Менеджер
-          </button>
+          </a>
         </div>
       </div>
     </aside>

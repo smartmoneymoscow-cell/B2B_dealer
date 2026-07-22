@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Карточка товара — B2B Dealer Portal</title>
+<title>Металлочерепица Ламонтерра NormanMP — B2B Dealer Portal</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -24,6 +24,7 @@
     --green-bg: #f0fdf4;
     --orange: #ea580c;
     --orange-bg: #fff7ed;
+    --red: #dc2626;
     --radius: 16px;
     --radius-sm: 10px;
     --radius-xs: 8px;
@@ -43,769 +44,147 @@
 
   /* ── HEADER ── */
   .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    position: sticky; top: 0; z-index: 100;
     background: rgba(255,255,255,0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
-    padding: 0 40px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
+    padding: 0 40px; height: 64px;
+    display: flex; align-items: center; gap: 24px;
   }
-
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .header-logo .logo-icon {
-    width: 32px;
-    height: 32px;
-    background: var(--accent);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
-    font-size: 14px;
-  }
-
-  .header-logo .company-name {
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: -0.3px;
-  }
-
-  .header-search {
-    flex: 1;
-    max-width: 480px;
-    position: relative;
-  }
-
-  .header-search input {
-    width: 100%;
-    height: 40px;
-    padding: 0 16px 0 40px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-pill);
-    font-size: 14px;
-    font-family: inherit;
-    background: var(--bg);
-    color: var(--text-primary);
-    transition: all 0.2s;
-    outline: none;
-  }
-
-  .header-search input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-    background: var(--white);
-  }
-
+  .header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; color: inherit; }
+  .header-logo .logo-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+  .header-logo .company-name { font-weight: 700; font-size: 16px; letter-spacing: -0.3px; }
+  .header-search { flex: 1; max-width: 480px; position: relative; }
+  .header-search input { width: 100%; height: 40px; padding: 0 16px 0 40px; border: 1px solid var(--border); border-radius: var(--radius-pill); font-size: 14px; font-family: inherit; background: var(--bg); color: var(--text-primary); transition: all 0.2s; outline: none; }
+  .header-search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); background: var(--white); }
   .header-search input::placeholder { color: var(--text-tertiary); }
-
-  .header-search .search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-tertiary);
-  }
-
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-left: auto;
-  }
-
-  .icon-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    transition: all 0.15s;
-    position: relative;
-  }
-
+  .header-search .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
+  .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.15s; position: relative; }
   .icon-btn:hover { background: var(--bg); color: var(--text-primary); }
-
-  .icon-btn .badge {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 8px;
-    height: 8px;
-    background: #ef4444;
-    border-radius: 50%;
-    border: 2px solid var(--white);
-  }
-
-  .avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
+  .icon-btn .badge { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; border: 2px solid var(--white); }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px; cursor: pointer; flex-shrink: 0; }
 
   /* ── BREADCRUMBS ── */
-  .breadcrumbs {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 16px 40px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--text-tertiary);
-  }
-
-  .breadcrumbs a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-
+  .breadcrumbs { max-width: 1440px; margin: 0 auto; padding: 16px 40px; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-tertiary); }
+  .breadcrumbs a { color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
   .breadcrumbs a:hover { color: var(--accent); }
-
-  .breadcrumbs .sep { color: var(--text-tertiary); }
-
   .breadcrumbs .current { color: var(--text-primary); font-weight: 500; }
 
-  /* ── MAIN CONTAINER ── */
-  .container {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0 40px 80px;
-    display: grid;
-    grid-template-columns: 1fr 340px;
-    gap: 32px;
-  }
-
+  /* ── LAYOUT ── */
+  .container { max-width: 1440px; margin: 0 auto; padding: 0 40px 80px; display: grid; grid-template-columns: 1fr 360px; gap: 32px; }
   .main-col { display: flex; flex-direction: column; gap: 24px; }
 
-  /* ── GALLERY + INFO ── */
-  .product-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 32px;
-    box-shadow: var(--shadow);
-  }
-
-  /* Gallery */
-  .gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .gallery-main {
-    width: 100%;
-    aspect-ratio: 4/3;
-    background: #f3f4f6;
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .gallery-main .placeholder {
-    font-size: 80px;
-    opacity: 0.2;
-  }
-
-  .gallery-main .erp-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 10px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(8px);
-    border-radius: var(--radius-pill);
-    font-size: 11px;
-    color: white;
-    font-weight: 500;
-  }
-
-  .gallery-main .erp-badge .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #4ade80;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  .gallery-thumbs {
-    display: flex;
-    gap: 8px;
-  }
-
-  .gallery-thumb {
-    width: 72px;
-    height: 54px;
-    border-radius: var(--radius-xs);
-    background: #f3f4f6;
-    border: 2px solid transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    opacity: 0.5;
-    transition: all 0.15s;
-    overflow: hidden;
-  }
-
-  .gallery-thumb:hover { opacity: 0.8; }
-
-  .gallery-thumb.active {
-    border-color: var(--accent);
-    opacity: 1;
-  }
+  /* ── GALLERY + HEADER ── */
+  .product-header { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 32px; box-shadow: var(--shadow); }
+  .gallery { display: flex; flex-direction: column; gap: 12px; }
+  .gallery-main { width: 100%; aspect-ratio: 4/3; background: #f0f1f3; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+  .gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-main .erp-badge { position: absolute; top: 12px; left: 12px; display: flex; align-items: center; gap: 5px; padding: 5px 12px; background: rgba(0,0,0,0.65); backdrop-filter: blur(8px); border-radius: var(--radius-pill); font-size: 11px; color: white; font-weight: 500; }
+  .gallery-main .erp-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .gallery-thumbs { display: flex; gap: 8px; }
+  .gallery-thumb { width: 72px; height: 54px; border-radius: var(--radius-xs); overflow: hidden; border: 2px solid transparent; cursor: pointer; transition: all 0.15s; }
+  .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-thumb:hover { border-color: #c0c5cc; }
+  .gallery-thumb.active { border-color: var(--accent); }
 
   /* Product Info */
-  .product-info {
-    display: flex;
-    flex-direction: column;
-  }
+  .product-info { display: flex; flex-direction: column; }
+  .pi-badges { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .pi-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: var(--radius-pill); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; }
+  .pi-badge.sku { background: var(--bg); color: var(--text-secondary); }
+  .pi-badge.category { background: var(--accent-light); color: var(--accent); }
+  .pi-badge.brand { background: #fef3c7; color: #92400e; }
+  .pi-name { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 6px; }
+  .pi-article { font-size: 14px; color: var(--text-tertiary); margin-bottom: 24px; }
+  .pi-price-block { background: var(--orange-bg); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 16px; }
+  .pi-price-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--orange); font-weight: 600; margin-bottom: 4px; }
+  .pi-price-value { font-size: 36px; font-weight: 700; color: var(--orange); letter-spacing: -1px; }
+  .pi-price-value .currency { font-size: 20px; font-weight: 600; }
+  .pi-price-note { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+  .pi-stock { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .stock-badge-lg { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600; }
+  .stock-badge-lg.in-stock { background: var(--green-bg); color: var(--green); }
+  .stock-badge-lg .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+  .pi-stock-qty { font-size: 14px; color: var(--text-secondary); }
+  .pi-stock-qty strong { color: var(--text-primary); }
+  .pi-short-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pi-spec-item { display: flex; flex-direction: column; gap: 2px; }
+  .pi-spec-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-tertiary); font-weight: 500; }
+  .pi-spec-item .value { font-size: 14px; font-weight: 500; }
 
-  .pi-badges {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-  }
-
-  .pi-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    border-radius: var(--radius-pill);
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-  }
-
-  .pi-badge.sku {
-    background: var(--bg);
-    color: var(--text-secondary);
-  }
-
-  .pi-badge.category {
-    background: var(--accent-light);
-    color: var(--accent);
-  }
-
-  .pi-name {
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-    margin-bottom: 8px;
-  }
-
-  .pi-article {
-    font-size: 14px;
-    color: var(--text-tertiary);
-    margin-bottom: 24px;
-  }
-
-  .pi-price-block {
-    background: var(--orange-bg);
-    border-radius: var(--radius-sm);
-    padding: 20px;
-    margin-bottom: 16px;
-  }
-
-  .pi-price-label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--orange);
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .pi-price-value {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--orange);
-    letter-spacing: -1px;
-  }
-
-  .pi-price-value .currency {
-    font-size: 20px;
-    font-weight: 600;
-  }
-
-  .pi-price-note {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    margin-top: 4px;
-  }
-
-  .pi-stock {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-
-  .stock-badge-lg {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: var(--radius-pill);
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .stock-badge-lg.in-stock {
-    background: var(--green-bg);
-    color: var(--green);
-  }
-
-  .stock-badge-lg .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-
-  .pi-stock-qty {
-    font-size: 14px;
-    color: var(--text-secondary);
-  }
-
-  .pi-stock-qty strong {
-    color: var(--text-primary);
-  }
-
-  .pi-short-specs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .pi-spec-item {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .pi-spec-item .label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    color: var(--text-tertiary);
-    font-weight: 500;
-  }
-
-  .pi-spec-item .value {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-primary);
-  }
-
-  /* ── DESCRIPTION CARD ── */
-  .card {
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 32px;
-    box-shadow: var(--shadow);
-  }
-
-  .card-title {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .card-title .ct-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-  }
-
-  .description-text {
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--text-secondary);
-  }
-
+  /* ── CARDS ── */
+  .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 32px; box-shadow: var(--shadow); }
+  .card-title { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .card-title .ct-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--bg); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+  .description-text { font-size: 15px; line-height: 1.7; color: var(--text-secondary); }
   .description-text p { margin-bottom: 16px; }
   .description-text p:last-child { margin-bottom: 0; }
 
-  /* ── SPECS TABLE ── */
-  .specs-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
+  /* Specs Table */
+  .specs-table { width: 100%; border-collapse: collapse; }
   .specs-table tr { border-bottom: 1px solid var(--border); }
   .specs-table tr:last-child { border-bottom: none; }
+  .specs-table td { padding: 14px 0; font-size: 14px; }
+  .specs-table td:first-child { color: var(--text-secondary); width: 45%; padding-right: 20px; }
+  .specs-table td:last-child { font-weight: 500; }
 
-  .specs-table td {
-    padding: 14px 0;
-    font-size: 14px;
-  }
-
-  .specs-table td:first-child {
-    color: var(--text-secondary);
-    width: 45%;
-    padding-right: 20px;
-  }
-
-  .specs-table td:last-child {
-    font-weight: 500;
-    color: var(--text-primary);
-  }
-
-  /* ── MATERIALS ── */
-  .materials-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .file-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    transition: all 0.15s;
-    cursor: pointer;
-  }
-
-  .file-card:hover {
-    border-color: var(--accent);
-    box-shadow: var(--shadow-md);
-  }
-
-  .file-card .fc-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    flex-shrink: 0;
-  }
-
+  /* Materials */
+  .materials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .file-card { display: flex; align-items: center; gap: 14px; padding: 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); transition: all 0.15s; cursor: pointer; }
+  .file-card:hover { border-color: var(--accent); box-shadow: var(--shadow-md); }
+  .file-card .fc-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
   .file-card .fc-icon.pdf { background: #fef2f2; color: #dc2626; }
   .file-card .fc-icon.doc { background: #eff6ff; color: #2563eb; }
   .file-card .fc-icon.img { background: #f0fdf4; color: #16a34a; }
   .file-card .fc-icon.zip { background: #fff7ed; color: #ea580c; }
-
   .file-card .fc-info { flex: 1; min-width: 0; }
-
-  .file-card .fc-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-primary);
-    margin-bottom: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .file-card .fc-meta {
-    font-size: 12px;
-    color: var(--text-tertiary);
-  }
-
-  .file-card .fc-actions {
-    display: flex;
-    gap: 6px;
-    flex-shrink: 0;
-  }
-
-  .file-card .fc-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--white);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    transition: all 0.15s;
-  }
-
-  .file-card .fc-btn:hover {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
+  .file-card .fc-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .file-card .fc-meta { font-size: 12px; color: var(--text-tertiary); }
+  .file-card .fc-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .file-card .fc-btn { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--border); background: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.15s; }
+  .file-card .fc-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
 
   /* ── SIDEBAR ── */
-  .sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    position: sticky;
-    top: 96px;
-    align-self: start;
-  }
+  .sidebar { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 96px; align-self: start; }
+  .sidebar-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 28px; box-shadow: var(--shadow); }
+  .sidebar-card .sc-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); font-weight: 600; margin-bottom: 20px; }
+  .sidebar-card .sc-price-label { font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; }
+  .sidebar-card .sc-price { font-size: 32px; font-weight: 700; color: var(--orange); letter-spacing: -0.5px; margin-bottom: 20px; }
+  .sidebar-card .sc-price .cur { font-size: 18px; font-weight: 600; }
+  .sidebar-card .sc-divider { height: 1px; background: var(--border); margin: 16px 0; }
+  .sidebar-card .sc-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
+  .sidebar-card .sc-row .label { font-size: 13px; color: var(--text-secondary); }
+  .sidebar-card .sc-row .value { font-size: 13px; font-weight: 600; }
+  .sidebar-card .sc-row .value.stock-green { color: var(--green); display: flex; align-items: center; gap: 5px; }
+  .sidebar-card .sc-row .value.stock-green .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 
-  .sidebar-card {
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 28px;
-    box-shadow: var(--shadow);
-  }
-
-  .sidebar-card .sc-title {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-tertiary);
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-
-  .sidebar-card .sc-price-label {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    margin-bottom: 4px;
-  }
-
-  .sidebar-card .sc-price {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--orange);
-    letter-spacing: -0.5px;
-    margin-bottom: 20px;
-  }
-
-  .sidebar-card .sc-price .cur {
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  .sidebar-card .sc-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 16px 0;
-  }
-
-  .sidebar-card .sc-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 0;
-  }
-
-  .sidebar-card .sc-row .label {
-    font-size: 13px;
-    color: var(--text-secondary);
-  }
-
-  .sidebar-card .sc-row .value {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-primary);
-  }
-
-  .sidebar-card .sc-row .value.stock-green {
-    color: var(--green);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .sidebar-card .sc-row .value.stock-green .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-  }
-
-  /* Reserve Form */
-  .reserve-card {
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 28px;
-    box-shadow: var(--shadow);
-  }
-
-  .reserve-card .rc-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .qty-selector {
-    display: flex;
-    align-items: center;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    margin-bottom: 16px;
-  }
-
-  .qty-selector button {
-    width: 48px;
-    height: 48px;
-    border: none;
-    background: var(--bg);
-    cursor: pointer;
-    font-size: 20px;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-    font-family: inherit;
-  }
-
+  /* Reserve */
+  .reserve-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 28px; box-shadow: var(--shadow); }
+  .reserve-card .rc-title { font-size: 16px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+  .qty-selector { display: flex; align-items: center; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 16px; }
+  .qty-selector button { width: 48px; height: 48px; border: none; background: var(--bg); cursor: pointer; font-size: 20px; color: var(--text-primary); display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-family: inherit; }
   .qty-selector button:hover { background: #e5e7eb; }
-
-  .qty-selector input {
-    flex: 1;
-    height: 48px;
-    border: none;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 600;
-    font-family: inherit;
-    color: var(--text-primary);
-    outline: none;
-    background: var(--white);
-    -moz-appearance: textfield;
-  }
-
+  .qty-selector input { flex: 1; height: 48px; border: none; text-align: center; font-size: 18px; font-weight: 600; font-family: inherit; color: var(--text-primary); outline: none; background: var(--white); -moz-appearance: textfield; }
   .qty-selector input::-webkit-outer-spin-button,
   .qty-selector input::-webkit-inner-spin-button { -webkit-appearance: none; }
+  .btn-reserve { width: 100%; height: 52px; border: none; border-radius: var(--radius-sm); background: var(--accent); color: white; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; margin-bottom: 16px; }
+  .btn-reserve:hover { background: var(--accent-hover); box-shadow: 0 4px 14px rgba(37,99,235,0.35); }
+  .reserve-info { background: var(--accent-light); border-radius: var(--radius-xs); padding: 14px 16px; display: flex; gap: 10px; }
+  .reserve-info .ri-icon { color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+  .reserve-info .ri-text { font-size: 12px; line-height: 1.5; color: var(--text-secondary); }
+  .reserve-info .ri-text strong { color: var(--text-primary); }
 
-  .btn-reserve {
-    width: 100%;
-    height: 52px;
-    border: none;
-    border-radius: var(--radius-sm);
-    background: var(--accent);
-    color: white;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.2s;
-    margin-bottom: 16px;
-  }
-
-  .btn-reserve:hover {
-    background: var(--accent-hover);
-    box-shadow: 0 4px 14px rgba(37,99,235,0.35);
-  }
-
-  .reserve-info {
-    background: var(--accent-light);
-    border-radius: var(--radius-xs);
-    padding: 14px 16px;
-    display: flex;
-    gap: 10px;
-  }
-
-  .reserve-info .ri-icon {
-    color: var(--accent);
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .reserve-info .ri-text {
-    font-size: 12px;
-    line-height: 1.5;
-    color: var(--text-secondary);
-  }
-
-  .reserve-info .ri-text strong {
-    color: var(--text-primary);
-  }
-
-  /* ── SVG ICONS ── */
+  /* ── SVG ── */
   .ico { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .ico-sm { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .ico-lg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* ── LOADING SKELETON ── */
-  .skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    border-radius: 6px;
-  }
+  /* ── DATA SOURCE INDICATOR ── */
+  .data-source { display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--green-bg); border-radius: var(--radius-pill); font-size: 11px; color: var(--green); font-weight: 500; margin-bottom: 20px; width: fit-content; }
+  .data-source .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
 
-  @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
-
-  /* ── RESPONSIVE ── */
   @media (max-width: 1200px) {
     .container { grid-template-columns: 1fr; }
     .sidebar { position: static; }
@@ -821,14 +200,12 @@
     <div class="logo-icon">DP</div>
     <span class="company-name">Dealer Portal</span>
   </a>
-
   <div class="header-search">
     <svg class="search-icon ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" placeholder="Search products…">
+    <input type="text" placeholder="Поиск товаров…" id="searchInput">
   </div>
-
   <div class="header-actions">
-    <button class="icon-btn" title="Notifications">
+    <button class="icon-btn" title="Уведомления">
       <svg class="ico" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span class="badge"></span>
     </button>
@@ -839,12 +216,14 @@
 <!-- ═══ BREADCRUMBS ═══ -->
 <nav class="breadcrumbs">
   <a href="index.html">Каталог</a>
-  <span class="sep">/</span>
+  <span>/</span>
   <a href="#">Кровля</a>
-  <span class="sep">/</span>
+  <span>/</span>
   <a href="#">Металлочерепица</a>
-  <span class="sep">/</span>
-  <span class="current">Монтеррей 0.5 мм</span>
+  <span>/</span>
+  <a href="#">Ламонтерра</a>
+  <span>/</span>
+  <span class="current">NormanMP 0.5 мм</span>
 </nav>
 
 <!-- ═══ MAIN ═══ -->
@@ -853,63 +232,46 @@
 
     <!-- ── PRODUCT HEADER ── -->
     <section class="product-header">
-
-      <!-- Gallery -->
       <div class="gallery">
         <div class="gallery-main">
-          <div class="erp-badge">
-            <span class="dot"></span>
-            Данные из 1С
-          </div>
-          <div class="placeholder">🏠</div>
+          <div class="erp-badge"><span class="dot"></span> 1С · обновлено 22.07.2026</div>
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=600&fit=crop" alt="Металлочерепица Ламонтерра NormanMP" loading="eager">
         </div>
         <div class="gallery-thumbs">
-          <div class="gallery-thumb active">🏠</div>
-          <div class="gallery-thumb">📐</div>
-          <div class="gallery-thumb">📦</div>
-          <div class="gallery-thumb">🔧</div>
-          <div class="gallery-thumb">📏</div>
+          <div class="gallery-thumb active"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=160&h=120&fit=crop" alt="Вид 1"></div>
+          <div class="gallery-thumb"><img src="https://images.unsplash.com/photo-1632759145356-d43e786d00e6?w=160&h=120&fit=crop" alt="Вид 2"></div>
+          <div class="gallery-thumb"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=160&h=120&fit=crop" alt="Монтаж"></div>
+          <div class="gallery-thumb"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=160&h=120&fit=crop" alt="Склад"></div>
+          <div class="gallery-thumb"><img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=160&h=120&fit=crop" alt="Объект"></div>
         </div>
       </div>
 
-      <!-- Product Info -->
       <div class="product-info">
+        <div class="data-source"><span class="dot"></span> Данные из 1С ERP · синхронизация в реальном времени</div>
         <div class="pi-badges">
-          <span class="pi-badge sku">SKU: ART-00124</span>
+          <span class="pi-badge sku">SKU: MП-ЛМН-NMP-050</span>
           <span class="pi-badge category">Кровля</span>
+          <span class="pi-badge brand">Металл Профиль</span>
         </div>
-
-        <h1 class="pi-name">Металлочерепица Монтеррей 0.5 мм</h1>
-        <div class="pi-article">Артикул: MC-MON-050-PE | Поставщик: ПрофМеталл</div>
+        <h1 class="pi-name">Металлочерепица Ламонтерра NormanMP 0.5 мм</h1>
+        <div class="pi-article">Артикул: 320817 · Покрытие: NormanMP® · Цвет: RAL 8017 (Коричневый шоколад)</div>
 
         <div class="pi-price-block">
           <div class="pi-price-label">Дилерская цена</div>
-          <div class="pi-price-value">1 240 <span class="currency">₽</span></div>
-          <div class="pi-price-note">за м² · НДС включён</div>
+          <div class="pi-price-value">790 <span class="currency">₽/м²</span></div>
+          <div class="pi-price-note">НДС включён · цена из 1С · обновлено 22.07.2026 14:30</div>
         </div>
 
         <div class="pi-stock">
           <span class="stock-badge-lg in-stock"><span class="dot"></span> В наличии</span>
-          <span class="pi-stock-qty"><strong>342</strong> шт на складе</span>
+          <span class="pi-stock-qty"><strong>1 240</strong> м² на складе · <strong>48</strong> часов самовывоз</span>
         </div>
 
         <div class="pi-short-specs">
-          <div class="pi-spec-item">
-            <span class="label">Толщина</span>
-            <span class="value">0.5 мм</span>
-          </div>
-          <div class="pi-spec-item">
-            <span class="label">Покрытие</span>
-            <span class="value">Полиэстер</span>
-          </div>
-          <div class="pi-spec-item">
-            <span class="label">Высота волны</span>
-            <span class="value">25 мм</span>
-          </div>
-          <div class="pi-spec-item">
-            <span class="label">Длина листа</span>
-            <span class="value">0.5–6 м</span>
-          </div>
+          <div class="pi-spec-item"><span class="label">Толщина</span><span class="value">0.5 мм</span></div>
+          <div class="pi-spec-item"><span class="label">Покрытие</span><span class="value">NormanMP® (25 мкм)</span></div>
+          <div class="pi-spec-item"><span class="label">Высота профиля</span><span class="value">39 мм</span></div>
+          <div class="pi-spec-item"><span class="label">Рабочая ширина</span><span class="value">1 100 мм</span></div>
         </div>
       </div>
     </section>
@@ -917,133 +279,105 @@
     <!-- ── DESCRIPTION ── -->
     <section class="card">
       <h2 class="card-title">
-        <span class="ct-icon">
-          <svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-        </span>
+        <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
         Описание
       </h2>
       <div class="description-text">
-        <p>Металлочерепица Монтеррей — один из самых популярных кровельных материалов в России. Профиль характеризуется классической формой волны, которая подходит для крыш любой конфигурации: от частных домов до коммерческих объектов.</p>
-        <p>Листы изготавливаются из оцинкованной стали с полимерным покрытием Полиэстер, обеспечивающим надёжную защиту от коррозии, ультрафиолета и атмосферных воздействий. Срок службы покрытия — до 50 лет при правильном монтаже.</p>
-        <p>Металлочерепица поставляется нарезанной по длине заказчика с шагом 50 мм, что минимизирует отходы и ускоряет монтаж. Вес 1 м² — всего 4.5 кг, что снижает нагрузку на стропильную систему.</p>
+        <p>Металлочерепица <strong>МЕТАЛЛ ПРОФИЛЬ Ламонтерра NormanMP (ПЭ-01-8017-0.5)</strong> — прочный, лёгкий, долговечный кровельный материал из оцинкованной стали с полимерным покрытием NormanMP®. Толщина стали — 0.5 мм, толщина покрытия — 25 мкм.</p>
+        <p>Профиль <strong>ЛАМОНТЕРРА®</strong> — продолжение линейки классической металлочерепицы МОНТЕРРЕЙ. Имеет необходимый запас прочности, долговечен и доступен по цене. Высокая популярность профиля связана с риском подделки — для защиты Компания Металл Профиль наносит на продукцию специальную маркировку в боковой части профиля.</p>
+        <p>Покрытие <strong>NormanMP®</strong> — проверенное временем покрытие на основе полиэстера. Обладает стабильным цветом, гладкой текстурой и подходит для различных климатических условий. Наибольший спрос — в коттеджном строительстве. Гарантия на покрытие — до 20 лет, реальный срок службы — до 50 лет.</p>
+        <p><strong>Преимущества:</strong> класс пожаробезопасности НГ (не горит), устойчивость к коррозии и УФ, простота монтажа, герметичность бокового соединения, изготовление на заказ по индивидуальным размерам с шагом 50 мм.</p>
       </div>
     </section>
 
-    <!-- ── TECHNICAL SPECS ── -->
+    <!-- ── SPECS ── -->
     <section class="card">
       <h2 class="card-title">
-        <span class="ct-icon">
-          <svg class="ico" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="4" y1="10" x2="20" y2="10"/><line x1="10" y1="4" x2="10" y2="20"/></svg>
-        </span>
-        Характеристики
+        <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><line x1="4" y1="10" x2="20" y2="10"/><line x1="10" y1="4" x2="10" y2="20"/></svg></span>
+        Технические характеристики
       </h2>
       <table class="specs-table">
-        <tr><td>Профиль</td><td>Монтеррей</td></tr>
-        <tr><td>Толщина металла</td><td>0.5 мм</td></tr>
-        <tr><td>Полимерное покрытие</td><td>Полиэстер (PE)</td></tr>
-        <tr><td>Высота волны</td><td>25 мм</td></tr>
-        <tr><td>Шаг волны</td><td>350 мм</td></tr>
-        <tr><td>Полезная ширина листа</td><td>1100 мм</td></tr>
-        <tr><td>Полная ширина листа</td><td>1180 мм</td></tr>
-        <tr><td>Длина листа</td><td>от 0.5 до 6 м (нарезка с шагом 50 мм)</td></tr>
+        <tr><td>Профиль</td><td>ЛАМОНТЕРРА® (на базе Монтеррей)</td></tr>
+        <tr><td>Производитель</td><td>Металл Профиль</td></tr>
+        <tr><td>Покрытие</td><td>NormanMP® (полиэстер)</td></tr>
+        <tr><td>Толщина стали</td><td>0.5 мм</td></tr>
+        <tr><td>Толщина покрытия</td><td>25 мкм</td></tr>
+        <tr><td>Высота профиля</td><td>39 мм</td></tr>
+        <tr><td>Высота ступеньки</td><td>14 мм</td></tr>
+        <tr><td>Длина ступеньки</td><td>350 мм</td></tr>
+        <tr><td>Габаритная ширина</td><td>1 190 мм</td></tr>
+        <tr><td>Рабочая ширина</td><td>1 100 мм</td></tr>
+        <tr><td>Ширина бокового замка</td><td>90 мм</td></tr>
+        <tr><td>Форма реза</td><td>2D</td></tr>
+        <tr><td>Поверхность</td><td>Глянцевая</td></tr>
+        <tr><td>Тип нанесения</td><td>Одностороннее покрытие</td></tr>
         <tr><td>Вес 1 м²</td><td>4.5 кг</td></tr>
-        <tr><td>Цинковое покрытие</td><td>140 г/м²</td></tr>
-        <tr><td>Гарантия на покрытие</td><td>10 лет (Полиэстер)</td></tr>
-        <tr><td>Срок службы</td><td>до 50 лет</td></tr>
-        <tr><td>Страна производства</td><td>Россия</td></tr>
+        <tr><td>Класс по ГОСТ P 58153/2018</td><td>Второй класс</td></tr>
+        <tr><td>Цветостойкость</td><td>Хорошая (RUV3)</td></tr>
+        <tr><td>Коррозийная стойкость</td><td>Удовлетворительная</td></tr>
+        <tr><td>Группа горючести</td><td>НГ (негорючий)</td></tr>
+        <tr><td>Гарантия на покрытие</td><td>до 20 лет</td></tr>
+        <tr><td>Расчётный срок службы</td><td>до 50 лет</td></tr>
+        <tr><td>Цвет</td><td>RAL 8017 — Коричневый шоколад</td></tr>
+        <tr><td>Код товара (1С)</td><td>320817</td></tr>
       </table>
     </section>
 
     <!-- ── MATERIALS ── -->
     <section class="card">
       <h2 class="card-title">
-        <span class="ct-icon">
-          <svg class="ico" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-        </span>
-        Материалы
+        <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></span>
+        Материалы для скачивания
       </h2>
       <div class="materials-grid">
-
         <div class="file-card">
           <div class="fc-icon pdf">📄</div>
-          <div class="fc-info">
-            <div class="fc-name">Инструкция по монтажу</div>
-            <div class="fc-meta">PDF · 2.4 МБ</div>
-          </div>
+          <div class="fc-info"><div class="fc-name">Инструкция по монтажу металлочерепицы</div><div class="fc-meta">PDF · 2.4 МБ · обновлён 15.06.2026</div></div>
           <div class="fc-actions">
-            <button class="fc-btn" title="Просмотр">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-            <button class="fc-btn" title="Скачать">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </button>
+            <button class="fc-btn" title="Просмотр"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="fc-btn" title="Скачать"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
           </div>
         </div>
-
         <div class="file-card">
           <div class="fc-icon doc">📋</div>
-          <div class="fc-info">
-            <div class="fc-name">Техническая документация</div>
-            <div class="fc-meta">PDF · 1.8 МБ</div>
-          </div>
+          <div class="fc-info"><div class="fc-name">Техническое описание профиля Ламонтерра</div><div class="fc-meta">PDF · 1.8 МБ · обновлён 01.03.2026</div></div>
           <div class="fc-actions">
-            <button class="fc-btn" title="Просмотр">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-            <button class="fc-btn" title="Скачать">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </button>
+            <button class="fc-btn" title="Просмотр"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="fc-btn" title="Скачать"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
           </div>
         </div>
-
         <div class="file-card">
           <div class="fc-icon doc">✅</div>
-          <div class="fc-info">
-            <div class="fc-name">Сертификат соответствия</div>
-            <div class="fc-meta">PDF · 890 КБ</div>
-          </div>
+          <div class="fc-info"><div class="fc-name">Сертификат соответствия ГОСТ</div><div class="fc-meta">PDF · 890 КБ · действует до 12.2027</div></div>
           <div class="fc-actions">
-            <button class="fc-btn" title="Просмотр">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-            <button class="fc-btn" title="Скачать">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </button>
+            <button class="fc-btn" title="Просмотр"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="fc-btn" title="Скачать"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
           </div>
         </div>
-
         <div class="file-card">
           <div class="fc-icon zip">📦</div>
-          <div class="fc-info">
-            <div class="fc-name">Каталог продукции 2025</div>
-            <div class="fc-meta">PDF · 12.1 МБ</div>
-          </div>
+          <div class="fc-info"><div class="fc-name">Каталог продукции Металл Профиль 2026</div><div class="fc-meta">PDF · 14.2 МБ · версия 6.1</div></div>
           <div class="fc-actions">
-            <button class="fc-btn" title="Просмотр">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-            <button class="fc-btn" title="Скачать">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </button>
+            <button class="fc-btn" title="Просмотр"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="fc-btn" title="Скачать"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
           </div>
         </div>
-
         <div class="file-card">
           <div class="fc-icon img">🖼️</div>
-          <div class="fc-info">
-            <div class="fc-name">Фотографии (архив)</div>
-            <div class="fc-meta">ZIP · 34.7 МБ</div>
-          </div>
+          <div class="fc-info"><div class="fc-name">Фотографии объектов (архив)</div><div class="fc-meta">ZIP · 38.5 МБ · 24 фото высокого разрешения</div></div>
           <div class="fc-actions">
-            <button class="fc-btn" title="Просмотр">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-            <button class="fc-btn" title="Скачать">
-              <svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </button>
+            <button class="fc-btn" title="Просмотр"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="fc-btn" title="Скачать"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
           </div>
         </div>
-
+        <div class="file-card">
+          <div class="fc-icon doc">📐</div>
+          <div class="fc-info"><div class="fc-name">Чертежи профиля (DXF/PDF)</div><div class="fc-meta">ZIP · 1.1 МБ · все типоразмеры</div></div>
+          <div class="fc-actions">
+            <button class="fc-btn" title="Просмотр"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+            <button class="fc-btn" title="Скачать"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1051,90 +385,84 @@
 
   <!-- ═══ SIDEBAR ═══ -->
   <aside class="sidebar">
-
-    <!-- Price & Stock Card -->
     <div class="sidebar-card">
       <div class="sc-title">Информация о товаре</div>
       <div class="sc-price-label">Дилерская цена</div>
-      <div class="sc-price">1 240 <span class="cur">₽</span></div>
-
+      <div class="sc-price">790 <span class="cur">₽/м²</span></div>
       <div class="sc-divider"></div>
-
-      <div class="sc-row">
-        <span class="label">Наличие</span>
-        <span class="value stock-green"><span class="dot"></span> 342 шт</span>
-      </div>
-      <div class="sc-row">
-        <span class="label">Артикул</span>
-        <span class="value">ART-00124</span>
-      </div>
-      <div class="sc-row">
-        <span class="label">Категория</span>
-        <span class="value">Кровля</span>
-      </div>
-      <div class="sc-row">
-        <span class="label">Покрытие</span>
-        <span class="value">Полиэстер</span>
-      </div>
-      <div class="sc-row">
-        <span class="label">Толщина</span>
-        <span class="value">0.5 мм</span>
-      </div>
+      <div class="sc-row"><span class="label">Наличие</span><span class="value stock-green"><span class="dot"></span> 1 240 м²</span></div>
+      <div class="sc-row"><span class="label">Артикул</span><span class="value">MП-ЛМН-NMP-050</span></div>
+      <div class="sc-row"><span class="label">Код 1С</span><span class="value">320817</span></div>
+      <div class="sc-row"><span class="label">Категория</span><span class="value">Кровля / Металлочерепица</span></div>
+      <div class="sc-row"><span class="label">Покрытие</span><span class="value">NormanMP®</span></div>
+      <div class="sc-row"><span class="label">Толщина</span><span class="value">0.5 мм</span></div>
+      <div class="sc-row"><span class="label">Цвет</span><span class="value">RAL 8017</span></div>
+      <div class="sc-row"><span class="label">Самовывоз</span><span class="value">от 48 ч</span></div>
     </div>
 
-    <!-- Reserve Card -->
     <div class="reserve-card">
       <div class="rc-title">
         <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
         Создать резерв
       </div>
-
       <div class="qty-selector">
+        <button onclick="changeQty(-10)">−10</button>
         <button onclick="changeQty(-1)">−</button>
-        <input type="number" id="qty" value="1" min="1" max="342">
+        <input type="number" id="qty" value="100" min="1" max="1240">
         <button onclick="changeQty(1)">+</button>
+        <button onclick="changeQty(10)">+10</button>
       </div>
-
+      <div style="display:flex;justify-content:space-between;margin-bottom:16px;font-size:13px;color:var(--text-secondary)">
+        <span>Итого:</span>
+        <span style="font-weight:700;color:var(--orange);font-size:16px" id="totalPrice">79 000 ₽</span>
+      </div>
       <button class="btn-reserve" onclick="createReserve()">
         <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
         Создать резерв
       </button>
-
       <div class="reserve-info">
-        <div class="ri-icon">
-          <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        </div>
-        <div class="ri-text">
-          Запрос на резервирование отправляется в <strong>1С</strong>. После подтверждения менеджером резерв действителен <strong>3 дня</strong>. Статус резерва отображается в разделе «Счета».
-        </div>
+        <div class="ri-icon"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+        <div class="ri-text">Запрос на резервирование отправляется в <strong>1С ERP</strong> (или оператору — в зависимости от настроек бизнес-процесса). После подтверждения менеджером резерв действителен <strong>3 дня</strong>. Статус резерва отображается в разделе «Счета».</div>
       </div>
     </div>
-
   </aside>
 </main>
 
 <script>
+  const PRICE = 790;
+  const MAX = 1240;
+
   function changeQty(delta) {
     const input = document.getElementById('qty');
     let val = parseInt(input.value) + delta;
     if (val < 1) val = 1;
-    if (val > 342) val = 342;
+    if (val > MAX) val = MAX;
     input.value = val;
+    updateTotal();
+  }
+
+  function updateTotal() {
+    const qty = parseInt(document.getElementById('qty').value) || 0;
+    const total = qty * PRICE;
+    document.getElementById('totalPrice').textContent = total.toLocaleString('ru-RU') + ' ₽';
   }
 
   function createReserve() {
     const qty = document.getElementById('qty').value;
-    alert(`Запрос на резерв ${qty} шт отправлен в 1С.\nОжидайте подтверждения от менеджера.`);
+    const total = (parseInt(qty) * PRICE).toLocaleString('ru-RU');
+    alert(`Запрос на резерв отправлен в 1С ERP\n\nПозиция: Металлочерепица Ламонтерра NormanMP 0.5 мм\nКоличество: ${qty} м²\nСумма: ${total} ₽\n\nОжидайте подтверждения от менеджера.`);
   }
 
-  // Simulate dynamic data loading
-  document.addEventListener('DOMContentLoaded', () => {
-    const erpBadge = document.querySelector('.erp-badge');
-    if (erpBadge) {
-      setTimeout(() => {
-        erpBadge.style.background = 'rgba(22,163,74,0.85)';
-      }, 1500);
-    }
+  document.getElementById('qty').addEventListener('input', updateTotal);
+
+  // Gallery thumbs
+  document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+      const mainImg = document.querySelector('.gallery-main img');
+      mainImg.src = thumb.querySelector('img').src.replace('w=160&h=120', 'w=800&h=600');
+    });
   });
 </script>
 

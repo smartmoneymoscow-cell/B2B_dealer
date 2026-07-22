@@ -3,655 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>B2B Dealer Portal</title>
+<title>Dealer Portal — Каталог</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
     --white: #ffffff;
-    --bg: #f8f9fb;
+    --bg: #f5f6f8;
     --surface: #ffffff;
-    --border: #e8eaed;
-    --text-primary: #1a1d23;
-    --text-secondary: #5f6368;
-    --text-tertiary: #9aa0a6;
+    --border: #e5e7eb;
+    --border-light: #f0f1f3;
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-tertiary: #9ca3af;
     --accent: #2563eb;
+    --accent-hover: #1d4ed8;
     --accent-light: #eff6ff;
-    --green: #16a34a;
-    --green-bg: #f0fdf4;
-    --orange: #ea580c;
-    --orange-bg: #fff7ed;
+    --accent-50: #dbeafe;
+    --green: #059669;
+    --green-bg: #ecfdf5;
+    --orange: #d97706;
+    --orange-bg: #fffbeb;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-900: #111827;
     --radius: 16px;
-    --radius-sm: 10px;
+    --radius-sm: 12px;
+    --radius-xs: 8px;
     --radius-pill: 100px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08);
-    --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+    --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
   }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--bg);
     color: var(--text-primary);
-    line-height: 1.5;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* ── HEADER ── */
+  /* ═══ HEADER ═══ */
   .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 40px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-
-  .header-logo .logo-icon {
-    width: 32px;
-    height: 32px;
-    background: var(--accent);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
-    font-size: 14px;
-  }
-
-  .header-logo .company-name {
-    font-weight: 700;
-    font-size: 16px;
-    color: var(--text-primary);
-    letter-spacing: -0.3px;
-  }
-
-  .header-search {
-    flex: 1;
-    max-width: 480px;
-    position: relative;
-  }
-
-  .header-search input {
-    width: 100%;
-    height: 40px;
-    padding: 0 16px 0 40px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-pill);
-    font-size: 14px;
-    font-family: inherit;
-    background: var(--bg);
-    color: var(--text-primary);
-    transition: all 0.2s;
-    outline: none;
-  }
-
-  .header-search input:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-    background: var(--white);
-  }
-
-  .header-search input::placeholder { color: var(--text-tertiary); }
-
-  .header-search .search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-tertiary);
-  }
-
-  .header-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-left: auto;
-  }
-
-  .icon-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    transition: all 0.15s;
-    position: relative;
-  }
-
-  .icon-btn:hover { background: var(--bg); color: var(--text-primary); }
-
-  .icon-btn .badge {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 8px;
-    height: 8px;
-    background: #ef4444;
-    border-radius: 50%;
-    border: 2px solid var(--white);
-  }
-
-  .avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  /* ── MAIN CONTAINER ── */
-  .container {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 32px 40px 80px;
-  }
-
-  /* ── HERO SECTION ── */
-  .hero {
-    display: block;
-    margin-bottom: 40px;
-  }
-
-  .hero-main {
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 32px;
-    box-shadow: var(--shadow);
-  }
-
-  .hero-main h1 {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
-  }
-
-  .hero-main .subtitle {
-    color: var(--text-secondary);
-    font-size: 15px;
-    margin-bottom: 28px;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-
-  .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .contact-item .ci-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    color: var(--text-secondary);
-  }
-
-  .contact-item .ci-label {
-    font-size: 12px;
-    color: var(--text-tertiary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
-  }
-
-  .contact-item .ci-value {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-primary);
-  }
-
-  .hero-buttons {
-    display: flex;
-    gap: 12px;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.15s;
-    border: none;
-    text-decoration: none;
-  }
-
-  .btn-primary {
-    background: var(--accent);
-    color: white;
-  }
-
-  .btn-primary:hover { background: #1d4ed8; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
-
-  .btn-secondary {
-    background: var(--bg);
-    color: var(--text-primary);
-    border: 1px solid var(--border);
-  }
-
-  .btn-secondary:hover { background: #f1f3f4; }
-
-  /* Manager Card */
-  .manager-card {
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    padding: 28px 24px;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .manager-card .mc-label {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-tertiary);
-    margin-bottom: 20px;
-  }
-
-  .manager-card .mc-photo {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #f093fb, #f5576c);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 16px;
-  }
-
-  .manager-card .mc-name {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .manager-card .mc-role {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    padding: 8px 20px;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .btn-outline:hover { background: var(--accent-light); }
-
-  /* ── CATEGORIES ── */
-  .categories-section {
-    margin-bottom: 32px;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .section-title {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -0.3px;
-  }
-
-  .section-link {
-    font-size: 13px;
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .section-link:hover { text-decoration: underline; }
-
-  .categories-scroll {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    scrollbar-width: none;
-  }
-
-  .categories-scroll::-webkit-scrollbar { display: none; }
-
-  .cat-pill {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-pill);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-    font-family: inherit;
-  }
-
-  .cat-pill:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-light);
-  }
-
-  .cat-pill.active {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-
-  .cat-pill .cat-icon {
-    font-size: 18px;
-    line-height: 1;
-  }
-
-  /* ── FILTERS BAR ── */
-  .filters-bar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
-
-  .filter-select {
-    height: 40px;
-    padding: 0 36px 0 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-family: inherit;
-    color: var(--text-primary);
-    background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239aa0a6' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
-    appearance: none;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.15s;
-  }
-
-  .filter-select:focus { border-color: var(--accent); }
-
-  .toggle-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .toggle {
-    width: 40px;
-    height: 22px;
-    background: #d1d5db;
-    border-radius: 11px;
-    position: relative;
-    transition: background 0.2s;
-  }
-
-  .toggle.on { background: var(--accent); }
-
-  .toggle::after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 16px;
-    height: 16px;
-    background: white;
-    border-radius: 50%;
-    transition: transform 0.2s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-  }
-
-  .toggle.on::after { transform: translateX(18px); }
-
-  .filter-spacer { flex: 1; }
-
-  .results-count {
-    font-size: 13px;
-    color: var(--text-tertiary);
-  }
-
-  /* ── PRODUCT GRID ── */
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-
-  .product-card {
-    background: var(--surface);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    transition: all 0.2s;
-    cursor: pointer;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-  }
-
-  .product-card:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
-    border-color: #d0d5dd;
-  }
-
-  .product-card .pc-image {
-    width: 100%;
-    height: 200px;
-    background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .product-card .pc-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .product-card .pc-image .placeholder-img {
-    font-size: 48px;
-    opacity: 0.3;
-  }
-
-  .product-card .pc-body {
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .product-card .pc-sku {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--text-tertiary);
-    margin-bottom: 6px;
-  }
-
-  .product-card .pc-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .product-card .pc-specs {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-bottom: 16px;
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .product-card .pc-footer {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-top: auto;
-  }
-
-  .product-card .pc-price {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--orange);
-    letter-spacing: -0.5px;
-  }
-
-  .product-card .pc-price .currency {
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  .stock-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    border-radius: var(--radius-pill);
-    font-size: 12px;
-    font-weight: 500;
-  }
-
-  .stock-badge.in-stock {
-    background: var(--green-bg);
-    color: var(--green);
-  }
-
-  .stock-badge.low-stock {
-    background: var(--orange-bg);
-    color: var(--orange);
-  }
-
-  .stock-badge .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-
-  .product-card .pc-action {
-    padding: 0 20px 20px;
-    margin-top: auto;
-  }
-
-  .btn-detail {
-    width: 100%;
-    height: 40px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--white);
-    color: var(--text-primary);
-    font-size: 13px;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .btn-detail:hover {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-
-  /* ── SVG ICONS (inline) ── */
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    padding: 0 48px; height: 64px;
+    display: flex; align-items: center; gap: 20px;
+  }
+  .header-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; flex-shrink: 0; }
+  .header-logo .logo-mark { width: 34px; height: 34px; background: linear-gradient(135deg, #2563eb, #7c3aed); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 13px; letter-spacing: -0.5px; }
+  .header-logo .logo-text { font-weight: 700; font-size: 17px; letter-spacing: -0.4px; color: var(--gray-900); }
+  .header-logo .logo-divider { width: 1px; height: 24px; background: var(--border); margin-left: 8px; }
+  .header-logo .logo-subtitle { font-size: 13px; color: var(--text-tertiary); font-weight: 400; }
+  .header-spacer { flex: 1; }
+  .header-nav { display: flex; gap: 4px; }
+  .header-nav a { padding: 8px 14px; border-radius: var(--radius-xs); font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.15s; }
+  .header-nav a:hover { color: var(--text-primary); background: var(--gray-50); }
+  .header-nav a.active { color: var(--accent); background: var(--accent-light); }
+  .header-actions { display: flex; align-items: center; gap: 6px; }
+  .icon-btn { width: 38px; height: 38px; border-radius: 10px; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.15s; position: relative; }
+  .icon-btn:hover { background: var(--gray-50); color: var(--text-primary); }
+  .icon-btn .badge { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; border: 2px solid var(--white); }
+  .avatar-btn { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #6366f1, #8b5cf6); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px; cursor: pointer; border: 2px solid transparent; transition: all 0.15s; }
+  .avatar-btn:hover { border-color: var(--accent-50); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+
+  /* ═══ HERO ═══ */
+  .hero { padding: 48px 48px 0; max-width: 1440px; margin: 0 auto; }
+  .hero-inner { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 20px; padding: 48px 56px; position: relative; overflow: hidden; }
+  .hero-inner::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%); pointer-events: none; }
+  .hero-inner::after { content: ''; position: absolute; bottom: -30%; left: 30%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%); pointer-events: none; }
+  .hero-top { display: flex; align-items: flex-start; justify-content: space-between; position: relative; z-index: 1; }
+  .hero-left { max-width: 640px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-pill); font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 500; margin-bottom: 20px; backdrop-filter: blur(8px); }
+  .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #34d399; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .hero h1 { font-size: 32px; font-weight: 700; color: white; letter-spacing: -0.8px; line-height: 1.2; margin-bottom: 10px; }
+  .hero h1 span { background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero .hero-desc { font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 28px; }
+  .hero-btns { display: flex; gap: 12px; }
+  .btn-hero { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s; text-decoration: none; border: none; }
+  .btn-hero-primary { background: white; color: var(--gray-900); }
+  .btn-hero-primary:hover { background: #f0f0f0; box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+  .btn-hero-secondary { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(8px); }
+  .btn-hero-secondary:hover { background: rgba(255,255,255,0.14); }
+  .hero-right { display: flex; gap: 20px; position: relative; z-index: 1; }
+  .hero-stat { text-align: center; padding: 20px 28px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); backdrop-filter: blur(8px); }
+  .hero-stat .num { font-size: 28px; font-weight: 700; color: white; letter-spacing: -1px; }
+  .hero-stat .label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+  /* ═══ MAIN CONTAINER ═══ */
+  .container { max-width: 1440px; margin: 0 auto; padding: 32px 48px 80px; }
+
+  /* ═══ CATEGORIES ═══ */
+  .section-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .section-bar h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+  .section-bar a { font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 500; }
+  .section-bar a:hover { text-decoration: underline; }
+
+  .cats { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; margin-bottom: 32px; }
+  .cats::-webkit-scrollbar { display: none; }
+  .cat { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-pill); font-size: 13px; font-weight: 500; color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: all 0.15s; font-family: inherit; }
+  .cat:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .cat.on { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 2px 8px rgba(37,99,235,0.25); }
+  .cat em { font-style: normal; font-size: 16px; }
+
+  /* ═══ SEARCH + SORT BAR ═══ */
+  .toolbar { display: flex; gap: 12px; align-items: center; margin-bottom: 28px; }
+  .toolbar-search { flex: 1; position: relative; }
+  .toolbar-search svg { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
+  .toolbar-search input { width: 100%; height: 48px; padding: 0 20px 0 50px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-family: inherit; background: var(--surface); outline: none; transition: all 0.2s; color: var(--text-primary); }
+  .toolbar-search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.08); }
+  .toolbar-search input::placeholder { color: var(--text-tertiary); }
+  .toolbar-sort { height: 48px; padding: 0 40px 0 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: inherit; color: var(--text-primary); background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center; appearance: none; cursor: pointer; outline: none; transition: all 0.15s; }
+  .toolbar-sort:focus { border-color: var(--accent); }
+  .toolbar-count { font-size: 13px; color: var(--text-tertiary); white-space: nowrap; font-weight: 400; }
+
+  /* ═══ PRODUCT GRID ═══ */
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); cursor: pointer; display: flex; flex-direction: column; }
+  .card:hover { box-shadow: var(--shadow-xl); transform: translateY(-4px); border-color: #d1d5db; }
+  .card-img { width: 100%; height: 200px; background: var(--gray-50); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+  .card-img svg { opacity: 0.18; }
+  .card-img .card-tag { position: absolute; top: 12px; left: 12px; padding: 4px 10px; border-radius: var(--radius-pill); font-size: 11px; font-weight: 600; background: rgba(0,0,0,0.6); color: white; backdrop-filter: blur(8px); }
+  .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+  .card-sku { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-tertiary); font-weight: 500; margin-bottom: 6px; }
+  .card-name { font-size: 15px; font-weight: 600; color: var(--text-primary); line-height: 1.35; margin-bottom: 6px; }
+  .card-specs { font-size: 13px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-footer { display: flex; align-items: flex-end; justify-content: space-between; margin-top: auto; }
+  .card-price { font-size: 22px; font-weight: 700; color: var(--orange); letter-spacing: -0.5px; }
+  .card-price .cur { font-size: 13px; font-weight: 500; }
+  .card-stock { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: var(--radius-pill); font-size: 11px; font-weight: 600; }
+  .card-stock.ok { background: var(--green-bg); color: var(--green); }
+  .card-stock.low { background: var(--orange-bg); color: var(--orange); }
+  .card-stock .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .card-action { padding: 0 20px 20px; margin-top: auto; }
+  .btn-detail { width: 100%; height: 42px; border: 1px solid var(--border); border-radius: var(--radius-xs); background: var(--white); color: var(--text-primary); font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .btn-detail:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 2px 8px rgba(37,99,235,0.25); }
+
+  /* ═══ SVG ═══ */
   .ico { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .ico-sm { width: 16px; height: 16px; }
-  .ico-lg { width: 20px; height: 20px; }
+  .ico-sm { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 1200px) {
-    .product-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-
+  @media (max-width: 1200px) { .grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; }
-    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-inner { padding: 32px 28px; }
+    .hero-top { flex-direction: column; gap: 28px; }
+    .hero-right { align-self: flex-start; }
     .container { padding: 24px 20px 60px; }
     .header { padding: 0 20px; }
+    .hero { padding: 24px 20px 0; }
+    .header-nav { display: none; }
   }
 </style>
 </head>
@@ -659,256 +171,240 @@
 
 <!-- ═══ HEADER ═══ -->
 <header class="header">
-  <div class="header-logo">
-    <div class="logo-icon">DP</div>
-    <span class="company-name">Dealer Portal</span>
-  </div>
-
-
-
+  <a href="index.html" class="header-logo">
+    <div class="logo-mark">DP</div>
+    <span class="logo-text">Dealer Portal</span>
+    <div class="logo-divider"></div>
+    <span class="logo-subtitle">Строительные материалы</span>
+  </a>
+  <div class="header-spacer"></div>
+  <nav class="header-nav">
+    <a href="index.html" class="active">Каталог</a>
+    <a href="invoices.html">Счета</a>
+    <a href="reservation.html">Резервы</a>
+    <a href="account.html">Кабинет</a>
+  </nav>
   <div class="header-actions">
-    <button class="icon-btn" title="Notifications">
+    <button class="icon-btn" title="Уведомления">
       <svg class="ico" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span class="badge"></span>
     </button>
-    <div class="avatar" title="Личный кабинет">АК</div>
+    <div class="avatar-btn" title="Алексей Кузнецов">АК</div>
   </div>
 </header>
 
-<!-- ═══ MAIN ═══ -->
-<main class="container">
-
-  <!-- ── HERO ── -->
-  <section class="hero">
-    <div class="hero-main">
-      <h1>Добро пожаловать, Алексей</h1>
-      <p class="subtitle">Дилерский портал — строительные материалы</p>
-
-      <div class="contact-grid">
-        <div class="contact-item">
-          <div class="ci-icon">
-            <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          </div>
-          <div>
-            <div class="ci-label">Телефон</div>
-            <div class="ci-value">+7 (495) 123-45-67</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon">
-            <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </div>
-          <div>
-            <div class="ci-label">Email</div>
-            <div class="ci-value">info@dealerportal.ru</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon">
-            <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <div>
-            <div class="ci-label">Адрес</div>
-            <div class="ci-value">Москва, ул. Строителей, 15</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="ci-icon">
-            <svg class="ico ico-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <div>
-            <div class="ci-label">Сайт</div>
-            <div class="ci-value">dealerportal.ru</div>
-          </div>
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-left">
+        <div class="hero-badge"><span class="dot"></span> Данные из 1С ERP · синхронизация в реальном времени</div>
+        <h1>Каталог <span>строительных материалов</span></h1>
+        <p class="hero-desc">Актуальные цены и остатки со склада. Быстрый поиск, резервирование и работа со счетами — всё в одном месте.</p>
+        <div class="hero-btns">
+          <a href="#catalog" class="btn-hero btn-hero-primary">
+            <svg class="ico-sm" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>
+            Перейти в каталог
+          </a>
+          <a href="invoices.html" class="btn-hero btn-hero-secondary">
+            <svg class="ico-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Мои счета
+          </a>
         </div>
       </div>
-
-      <div class="hero-buttons">
-        <a href="#" class="btn btn-primary">
-          <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Перейти на сайт
-        </a>
-        <a href="#" class="btn btn-secondary">
-          <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Связаться с менеджером
-        </a>
+      <div class="hero-right">
+        <div class="hero-stat"><div class="num">247</div><div class="label">товаров</div></div>
+        <div class="hero-stat"><div class="num">18</div><div class="label">категорий</div></div>
+        <div class="hero-stat"><div class="num">24/7</div><div class="label">доступ</div></div>
       </div>
     </div>
+  </div>
+</section>
 
+<!-- ═══ MAIN ═══ -->
+<main class="container" id="catalog">
 
-  </section>
-
-  <!-- ── SEARCH ── -->
-  <div class="catalog-search" style="margin-bottom:24px;position:relative">
-    <svg style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-tertiary)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input type="text" placeholder="Поиск товаров по названию, артикулу, категории…" style="width:100%;height:48px;padding:0 16px 0 48px;border:1px solid var(--border);border-radius:var(--radius);font-size:15px;font-family:inherit;background:var(--white);outline:none;transition:all 0.2s">
+  <!-- CATEGORIES -->
+  <div class="section-bar"><h2>Категории</h2><a href="#">Все категории →</a></div>
+  <div class="cats">
+    <button class="cat on"><em>🏗️</em> Все</button>
+    <button class="cat"><em>🏠</em> Кровля</button>
+    <button class="cat"><em>🧱</em> Фасад</button>
+    <button class="cat"><em>💧</em> Водосток</button>
+    <button class="cat"><em>🔩</em> Крепёж</button>
+    <button class="cat"><em>🪟</em> Аксессуары</button>
+    <button class="cat"><em>🧊</em> Утеплитель</button>
+    <button class="cat"><em>🪨</em> Камень</button>
+    <button class="cat"><em>🎨</em> Краски</button>
   </div>
 
-  <!-- ── CATEGORIES ── -->
-  <section class="categories-section">
-    <div class="section-header">
-      <h2 class="section-title">Категории</h2>
-      <a href="#" class="section-link">Все категории →</a>
+  <!-- SEARCH + SORT -->
+  <div class="toolbar" style="display:flex;gap:12px;align-items:center;margin-bottom:28px">
+    <div style="flex:1;position:relative">
+      <svg style="position:absolute;left:18px;top:50%;transform:translateY(-50%);color:var(--text-tertiary)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Поиск товаров…" style="width:100%;height:48px;padding:0 20px 0 50px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:inherit;background:var(--surface);outline:none;transition:all 0.2s;color:var(--text-primary)">
     </div>
-    <div class="categories-scroll">
-      <button class="cat-pill active"><span class="cat-icon">🏗️</span> Все</button>
-      <button class="cat-pill"><span class="cat-icon">🏠</span> Кровля</button>
-      <button class="cat-pill"><span class="cat-icon">🧱</span> Фасад</button>
-      <button class="cat-pill"><span class="cat-icon">💧</span> Водосток</button>
-      <button class="cat-pill"><span class="cat-icon">🔩</span> Крепёж</button>
-      <button class="cat-pill"><span class="cat-icon">🪟</span> Аксессуары</button>
-      <button class="cat-pill"><span class="cat-icon">🧊</span> Утеплитель</button>
-      <button class="cat-pill"><span class="cat-icon">🪨</span> Камень</button>
-      <button class="cat-pill"><span class="cat-icon">🎨</span> Краски</button>
-    </div>
-  </section>
-
-  <!-- ── FILTERS ── -->
-  <div class="filters-bar">
-    <select class="filter-select">
-      <option>Сортировка: Сначала популярные</option>
+    <select style="height:48px;padding:0 40px 0 16px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:inherit;color:var(--text-primary);background:var(--surface) url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712%27 height=%2712%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%239ca3af%27 stroke-width=%272%27%3E%3Cpath d=%27M6 9l6 6 6-6%27/%3E%3C/svg%3E') no-repeat right 14px center;appearance:none;cursor:pointer;outline:none">
+      <option>Сначала популярные</option>
       <option>Цена: по возрастанию</option>
       <option>Цена: по убыванию</option>
       <option>Название: А–Я</option>
     </select>
-
-
-
-    <span class="filter-spacer"></span>
-    <span class="results-count">Показано 8 из 247 товаров</span>
+    <span style="font-size:13px;color:var(--text-tertiary);white-space:nowrap">8 из 247</span>
   </div>
 
-  <!-- ── PRODUCT GRID ── -->
-  <div class="product-grid">
+  <!-- PRODUCT GRID -->
+  <div class="grid">
 
     <!-- Card 1 -->
-    <div class="product-card">
-      <div class="pc-image"><div class="placeholder-img"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div></div>
-      <div class="pc-body">
-        <div class="pc-sku">ART-00124</div>
-        <div class="pc-name">Металлочерепица Монтеррей 0.5 мм</div>
-        <div class="pc-specs">Полиэстер, толщина 0.5 мм, высота волны 25 мм</div>
-        <div class="pc-footer">
-          <div class="pc-price">1 240 <span class="currency">₽</span></div>
-          <span class="stock-badge in-stock"><span class="dot"></span> 342 шт</span>
+    <div class="card">
+      <div class="card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>
+        <span class="card-tag">Хит</span>
+      </div>
+      <div class="card-body">
+        <div class="card-sku">MП-ЛМН-NMP-050</div>
+        <div class="card-name">Металлочерепица Ламонтерра NormanMP 0.5 мм</div>
+        <div class="card-specs">Полиэстер, толщина 0.5 мм, высота профиля 39 мм, RAL 8017</div>
+        <div class="card-footer">
+          <div class="card-price">790 <span class="cur">₽/м²</span></div>
+          <span class="card-stock ok"><span class="dot"></span> 1 240 м²</span>
         </div>
       </div>
-      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+      <div class="card-action"><a href="product.html" class="btn-detail">Подробнее</a></div>
     </div>
 
     <!-- Card 2 -->
-    <div class="product-card">
-      <div class="pc-image"><div class="placeholder-img"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg></div></div>
-      <div class="pc-body">
-        <div class="pc-sku">ART-00891</div>
-        <div class="pc-name">Сайдинг виниловый Блок-Хаус</div>
-        <div class="pc-specs">3.66 м, морозостойкий, 24 цвета</div>
-        <div class="pc-footer">
-          <div class="pc-price">487 <span class="currency">₽</span></div>
-          <span class="stock-badge in-stock"><span class="dot"></span> 1 205 шт</span>
+    <div class="card">
+      <div class="card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-sku">МП-LБР-8017-045</div>
+        <div class="card-name">Сайдинг Lбрус 15×240 NormanMP</div>
+        <div class="card-specs">Металлический, 0.45 мм, длина 3 м, коричневый шоколад</div>
+        <div class="card-footer">
+          <div class="card-price">487 <span class="cur">₽/м²</span></div>
+          <span class="card-stock ok"><span class="dot"></span> 1 205 шт</span>
         </div>
       </div>
-      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+      <div class="card-action"><button class="btn-detail">Подробнее</button></div>
     </div>
 
     <!-- Card 3 -->
-    <div class="product-card">
-      <div class="pc-image"><div class="placeholder-img"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M12 2v20M2 12h20M7 7l5 5 5-5M7 17l5-5 5 5"/></svg></div></div>
-      <div class="pc-body">
-        <div class="pc-sku">ART-00347</div>
-        <div class="pc-name">Водосточная система 125/90</div>
-        <div class="pc-specs">ПВХ, полукруглая, серая, комплект</div>
-        <div class="pc-footer">
-          <div class="pc-price">3 890 <span class="currency">₽</span></div>
-          <span class="stock-badge in-stock"><span class="dot"></span> 86 компл</span>
+    <div class="card">
+      <div class="card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M12 2v20M2 12h20M7 7l5 5 5-5M7 17l5-5 5 5"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-sku">МП-GS-125-8017</div>
+        <div class="card-name">Водосточная система GRANDSYSTEM D125</div>
+        <div class="card-specs">Металлическая, полукруглая, RAL 8017, комплект</div>
+        <div class="card-footer">
+          <div class="card-price">3 890 <span class="cur">₽</span></div>
+          <span class="card-stock ok"><span class="dot"></span> 86 компл</span>
         </div>
       </div>
-      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+      <div class="card-action"><button class="btn-detail">Подробнее</button></div>
     </div>
 
     <!-- Card 4 -->
-    <div class="product-card">
-      <div class="pc-image"><div class="placeholder-img"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></div></div>
-      <div class="pc-body">
-        <div class="pc-sku">ART-01102</div>
-        <div class="pc-name">Саморез кровельный 4.8×35</div>
-        <div class="pc-specs">EPDM прокладка, оцинкованный, 1000 шт</div>
-        <div class="pc-footer">
-          <div class="pc-price">1 650 <span class="currency">₽</span></div>
-          <span class="stock-badge in-stock"><span class="dot"></span> 5 400 уп</span>
+    <div class="card">
+      <div class="card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-sku">МП-СМР-4835-Ц</div>
+        <div class="card-name">Саморез кровельный 4.8×35 оцинк.</div>
+        <div class="card-specs">EPDM прокладка, оцинкованный, 1000 шт/уп</div>
+        <div class="card-footer">
+          <div class="card-price">1 650 <span class="cur">₽</span></div>
+          <span class="card-stock ok"><span class="dot"></span> 5 400 уп</span>
         </div>
       </div>
-      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+      <div class="card-action"><button class="btn-detail">Подробнее</button></div>
     </div>
 
     <!-- Card 5 -->
-    <div class="product-card">
-      <div class="pc-image"><div class="placeholder-img"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div></div>
-      <div class="pc-body">
-        <div class="pc-sku">ART-00556</div>
-        <div class="pc-name">Утеплитель ROCKWOOL Фасад Баттс</div>
-        <div class="pc-specs">100 мм, 0.036 Вт/м·К, негорючий</div>
-        <div class="pc-footer">
-          <div class="pc-price">2 190 <span class="currency">₽</span></div>
-          <span class="stock-badge low-stock"><span class="dot"></span> 18 шт</span>
+    <div class="card">
+      <div class="card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-sku">RW-ФБЭ-100</div>
+        <div class="card-name">Утеплитель ROCKWOOL Фасад Баттс</div>
+        <div class="card-specs">100 мм, 0.036 Вт/м·К, негорючий, 600×1200</div>
+        <div class="card-footer">
+          <div class="card-price">2 190 <span class="cur">₽</span></div>
+          <span class="card-stock low"><span class="dot"></span> 18 шт</span>
         </div>
       </div>
-      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+      <div class="card-action"><button class="btn-detail">Подробнее</button></div>
     </div>
 
     <!-- Card 6 -->
-    <div class="product-card">
-      <div class="pc-image"><div class="placeholder-img"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div></div>
-      <div class="pc-body">
-        <div class="pc-sku">ART-02210</div>
-        <div class="pc-name">Мансардное окно FAKRO FTS-V U2</div>
-        <div class="pc-specs">78×118 см, стеклопакет 24 мм, Pine</div>
-        <div class="pc-footer">
-          <div class="pc-price">18 700 <span class="currency">₽</span></div>
-          <span class="stock-badge in-stock"><span class="dot"></span> 24 шт</span>
+    <div class="card">
+      <div class="card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-sku">FKR-PTP-V-U4-7898</div>
+        <div class="card-name">Мансардное окно FAKRO PTP-V U4</div>
+        <div class="card-specs">78×98 см, двухкамерный стеклопакет, Pine</div>
+        <div class="card-footer">
+          <div class="card-price">18 700 <span class="cur">₽</span></div>
+          <span class="card-stock ok"><span class="dot"></span> 24 шт</span>
         </div>
       </div>
-      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+      <div class="card-action"><button class="btn-detail">Подробнее</button></div>
     </div>
 
     <!-- Card 7 -->
-    <div class="product-card">
-      <div class="pc-image"><div class="placeholder-img"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M2 20h20M4 20l2-8 4 4 4-12 4 8 2 8"/></svg></div></div>
-      <div class="pc-body">
-        <div class="pc-sku">ART-00789</div>
-        <div class="pc-name">Профнастил С-8 оцинкованный</div>
-        <div class="pc-specs">0.45 мм, полезная ширина 1100 мм</div>
-        <div class="pc-footer">
-          <div class="pc-price">390 <span class="currency">₽</span></div>
-          <span class="stock-badge in-stock"><span class="dot"></span> 870 м²</span>
+    <div class="card">
+      <div class="card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M2 20h20M4 20l2-8 4 4 4-12 4 8 2 8"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-sku">МП-МП20-7024</div>
+        <div class="card-name">Профнастил МП-20х1100 NormanMP</div>
+        <div class="card-specs">0.45 мм, полезная ширина 1100 мм, RAL 7024</div>
+        <div class="card-footer">
+          <div class="card-price">390 <span class="cur">₽/м²</span></div>
+          <span class="card-stock ok"><span class="dot"></span> 870 м²</span>
         </div>
       </div>
-      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+      <div class="card-action"><button class="btn-detail">Подробнее</button></div>
     </div>
 
     <!-- Card 8 -->
-    <div class="product-card">
-      <div class="pc-image"><div class="placeholder-img"><svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg></div></div>
-      <div class="pc-body">
-        <div class="pc-sku">ART-03301</div>
-        <div class="pc-name">Гидроизоляция Техноэласт ЭПП</div>
-        <div class="pc-specs">4 мм, наплавляемый, рулон 10 м²</div>
-        <div class="pc-footer">
-          <div class="pc-price">1 520 <span class="currency">₽</span></div>
-          <span class="stock-badge in-stock"><span class="dot"></span> 156 рул</span>
+    <div class="card">
+      <div class="card-img">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#c0c5cc" stroke-width="1.5"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>
+      </div>
+      <div class="card-body">
+        <div class="card-sku">ТН-ТЭ-ЭПП-4</div>
+        <div class="card-name">Гидроизоляция Техноэласт ЭПП</div>
+        <div class="card-specs">4 мм, наплавляемый, рулон 10×1 м</div>
+        <div class="card-footer">
+          <div class="card-price">1 520 <span class="cur">₽</span></div>
+          <span class="card-stock ok"><span class="dot"></span> 156 рул</span>
         </div>
       </div>
-      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+      <div class="card-action"><button class="btn-detail">Подробнее</button></div>
     </div>
 
   </div>
 </main>
 
 <script>
-window.replainSettings = { id: '4944710b-9eca-49c5-bbad-6accdc993c39' };
-(function(u){var s=document.createElement('script');s.async=true;s.src=u;
-var x=document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);
-})('https://widget.replain.cc/dist/client.js');
+// Category toggle
+document.querySelectorAll('.cat').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('.cat').forEach(x => x.classList.remove('on'));
+    c.classList.add('on');
+  });
+});
 </script>
+
 </body>
 </html>

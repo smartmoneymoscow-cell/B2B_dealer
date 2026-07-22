@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Счета — B2B Dealer Portal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #ffffff;
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #e8eaed;
+    --text-primary: #1a1d23;
+    --text-secondary: #5f6368;
+    --text-tertiary: #9aa0a6;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-light: #eff6ff;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --orange: #ea580c;
+    --orange-bg: #fff7ed;
+    --orange-border: #fed7aa;
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+    --red-border: #fecaca;
+    --gray-bg: #f3f4f6;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 8px;
+    --radius-pill: 100px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px; height: 64px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; color: inherit; }
+  .header-logo .logo-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+  .header-logo .company-name { font-weight: 700; font-size: 16px; letter-spacing: -0.3px; }
+  .header-search { flex: 1; max-width: 480px; position: relative; }
+  .header-search input { width: 100%; height: 40px; padding: 0 16px 0 40px; border: 1px solid var(--border); border-radius: var(--radius-pill); font-size: 14px; font-family: inherit; background: var(--bg); outline: none; }
+  .header-search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); background: var(--white); }
+  .header-search .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
+  .header-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.15s; position: relative; }
+  .icon-btn:hover { background: var(--bg); }
+  .icon-btn .badge { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; border: 2px solid var(--white); }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px; cursor: pointer; }
+
+  /* ── PAGE ── */
+  .page { max-width: 1120px; margin: 0 auto; padding: 24px 40px 80px; }
+
+  .page-header { margin-bottom: 28px; }
+  .page-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+  .page-header .subtitle { font-size: 15px; color: var(--text-secondary); }
+
+  /* ── FILTERS ── */
+  .filters-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+  .filters-bar .search-field { position: relative; flex: 1; max-width: 360px; }
+  .filters-bar .search-field input { width: 100%; height: 40px; padding: 0 16px 0 40px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: inherit; background: var(--white); outline: none; }
+  .filters-bar .search-field input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+  .filters-bar .search-field .s-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
+  .filter-select { height: 40px; padding: 0 36px 0 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-family: inherit; color: var(--text-primary); background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239aa0a6' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center; appearance: none; cursor: pointer; outline: none; }
+  .filter-select:focus { border-color: var(--accent); }
+  .filter-spacer { flex: 1; }
+  .results-count { font-size: 13px; color: var(--text-tertiary); }
+
+  /* ── LAYOUT ── */
+  .layout { display: grid; grid-template-columns: 1fr 300px; gap: 28px; }
+  .main-col { display: flex; flex-direction: column; gap: 16px; }
+
+  /* ── INVOICE CARD ── */
+  .invoice-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow); transition: all 0.15s; cursor: pointer; }
+  .invoice-card:hover { box-shadow: var(--shadow-md); border-color: #d0d5dd; }
+
+  .ic-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+  .ic-number { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
+  .ic-date { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+
+  .ic-status { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 600; }
+  .ic-status.awaiting { background: var(--orange-bg); color: var(--orange); }
+  .ic-status.paid { background: var(--green-bg); color: var(--green); }
+  .ic-status.cancelled { background: var(--gray-bg); color: var(--text-tertiary); }
+  .ic-status.overdue { background: var(--red-bg); color: var(--red); }
+  .ic-status .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  .ic-body { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .ic-field { display: flex; flex-direction: column; gap: 2px; }
+  .ic-field .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-tertiary); font-weight: 500; }
+  .ic-field .value { font-size: 14px; font-weight: 500; }
+  .ic-field .value.amount { font-size: 18px; font-weight: 700; color: var(--orange); }
+  .ic-field .value.res-link { color: var(--accent); cursor: pointer; }
+  .ic-field .value.res-link:hover { text-decoration: underline; }
+
+  .ic-footer { display: flex; align-items: center; gap: 8px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .ic-footer .btn { height: 36px; padding: 0 14px; font-size: 12px; }
+  .ic-footer .btn-primary { background: var(--accent); color: white; border: none; border-radius: var(--radius-xs); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-family: inherit; font-weight: 500; transition: all 0.15s; }
+  .ic-footer .btn-primary:hover { background: var(--accent-hover); }
+  .ic-footer .btn-outline { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); border-radius: var(--radius-xs); cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font-family: inherit; font-weight: 500; transition: all 0.15s; }
+  .ic-footer .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 96px; align-self: start; }
+  .sidebar-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow); }
+  .sidebar-card .sc-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); font-weight: 600; margin-bottom: 16px; }
+  .sidebar-card .sc-stat { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .sidebar-card .sc-stat:last-child { border-bottom: none; }
+  .sidebar-card .sc-stat .label { font-size: 13px; color: var(--text-secondary); }
+  .sidebar-card .sc-stat .value { font-size: 15px; font-weight: 700; }
+  .sidebar-card .sc-stat .value.green { color: var(--green); }
+  .sidebar-card .sc-stat .value.orange { color: var(--orange); }
+  .sidebar-card .sc-stat .value.red { color: var(--red); }
+  .sidebar-card .sc-stat .value.blue { color: var(--accent); }
+
+  .ico { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ico-sm { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .erp-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: var(--green-bg); border: 1px solid var(--green-border); border-radius: var(--radius-pill); font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: 20px; }
+  .erp-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  @media (max-width: 1000px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .ic-body { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <a href="index.html" class="header-logo">
+    <div class="logo-icon">DP</div>
+    <span class="company-name">Dealer Portal</span>
+  </a>
+  <div class="header-search">
+    <svg class="search-icon ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Поиск товаров…">
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" title="Уведомления">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="badge"></span>
+    </button>
+    <div class="avatar">АК</div>
+  </div>
+</header>
+
+<!-- ═══ PAGE ═══ -->
+<main class="page">
+  <div class="page-header">
+    <div class="erp-badge"><span class="dot"></span> Данные из 1С ERP · синхронизация в реальном времени</div>
+    <h1>Счета</h1>
+    <p class="subtitle">Управление счетами и контроль оплаты</p>
+  </div>
+
+  <!-- ── FILTERS ── -->
+  <div class="filters-bar">
+    <div class="search-field">
+      <svg class="s-icon ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Поиск по номеру счёта…">
+    </div>
+    <select class="filter-select">
+      <option>Все статусы</option>
+      <option>Ожидает оплаты</option>
+      <option>Оплачено</option>
+      <option>Отменено</option>
+      <option>Просрочено</option>
+    </select>
+    <select class="filter-select">
+      <option>За всё время</option>
+      <option>За неделю</option>
+      <option>За месяц</option>
+      <option>За квартал</option>
+    </select>
+    <span class="filter-spacer"></span>
+    <span class="results-count">6 счетов</span>
+  </div>
+
+  <div class="layout">
+    <div class="main-col">
+
+      <!-- ── INVOICE 1 ── -->
+      <div class="invoice-card">
+        <div class="ic-header">
+          <div>
+            <div class="ic-number">СЧТ-2026-07-0481</div>
+            <div class="ic-date">22.07.2026 · Резерв РЗВ-2026-07-0481</div>
+          </div>
+          <span class="ic-status awaiting"><span class="dot"></span> Ожидает оплаты</span>
+        </div>
+        <div class="ic-body">
+          <div class="ic-field"><span class="label">Компания</span><span class="value">ООО «СтройМаркет»</span></div>
+          <div class="ic-field"><span class="label">Сумма</span><span class="value amount">79 000 ₽</span></div>
+          <div class="ic-field"><span class="label">НДС</span><span class="value">Включён</span></div>
+        </div>
+        <div class="ic-footer">
+          <button class="btn-primary"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Открыть</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
+        </div>
+      </div>
+
+      <!-- ── INVOICE 2 ── -->
+      <div class="invoice-card">
+        <div class="ic-header">
+          <div>
+            <div class="ic-number">СЧТ-2026-07-0356</div>
+            <div class="ic-date">18.07.2026 · Резерв РЗВ-2026-07-0356</div>
+          </div>
+          <span class="ic-status paid"><span class="dot"></span> Оплачено</span>
+        </div>
+        <div class="ic-body">
+          <div class="ic-field"><span class="label">Компания</span><span class="value">ИП Сидоров А.В.</span></div>
+          <div class="ic-field"><span class="label">Сумма</span><span class="value amount">142 500 ₽</span></div>
+          <div class="ic-field"><span class="label">НДС</span><span class="value">Включён</span></div>
+        </div>
+        <div class="ic-footer">
+          <button class="btn-primary"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Открыть</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
+        </div>
+      </div>
+
+      <!-- ── INVOICE 3 ── -->
+      <div class="invoice-card">
+        <div class="ic-header">
+          <div>
+            <div class="ic-number">СЧТ-2026-07-0298</div>
+            <div class="ic-date">15.07.2026 · Резерв РЗВ-2026-07-0298</div>
+          </div>
+          <span class="ic-status paid"><span class="dot"></span> Оплачено</span>
+        </div>
+        <div class="ic-body">
+          <div class="ic-field"><span class="label">Компания</span><span class="value">ООО «Кровля-Сервис»</span></div>
+          <div class="ic-field"><span class="label">Сумма</span><span class="value amount">236 800 ₽</span></div>
+          <div class="ic-field"><span class="label">НДС</span><span class="value">Включён</span></div>
+        </div>
+        <div class="ic-footer">
+          <button class="btn-primary"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Открыть</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
+        </div>
+      </div>
+
+      <!-- ── INVOICE 4 ── -->
+      <div class="invoice-card">
+        <div class="ic-header">
+          <div>
+            <div class="ic-number">СЧТ-2026-07-0215</div>
+            <div class="ic-date">10.07.2026 · Резерв РЗВ-2026-07-0215</div>
+          </div>
+          <span class="ic-status overdue"><span class="dot"></span> Просрочено</span>
+        </div>
+        <div class="ic-body">
+          <div class="ic-field"><span class="label">Компания</span><span class="value">ООО «ФасадГрупп»</span></div>
+          <div class="ic-field"><span class="label">Сумма</span><span class="value amount">54 300 ₽</span></div>
+          <div class="ic-field"><span class="label">НДС</span><span class="value">Включён</span></div>
+        </div>
+        <div class="ic-footer">
+          <button class="btn-primary"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Открыть</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
+        </div>
+      </div>
+
+      <!-- ── INVOICE 5 ── -->
+      <div class="invoice-card">
+        <div class="ic-header">
+          <div>
+            <div class="ic-number">СЧТ-2026-06-0189</div>
+            <div class="ic-date">28.06.2026 · Резерв РЗВ-2026-06-0189</div>
+          </div>
+          <span class="ic-status paid"><span class="dot"></span> Оплачено</span>
+        </div>
+        <div class="ic-body">
+          <div class="ic-field"><span class="label">Компания</span><span class="value">ООО «СтройМаркет»</span></div>
+          <div class="ic-field"><span class="label">Сумма</span><span class="value amount">312 000 ₽</span></div>
+          <div class="ic-field"><span class="label">НДС</span><span class="value">Включён</span></div>
+        </div>
+        <div class="ic-footer">
+          <button class="btn-primary"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Открыть</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
+        </div>
+      </div>
+
+      <!-- ── INVOICE 6 ── -->
+      <div class="invoice-card">
+        <div class="ic-header">
+          <div>
+            <div class="ic-number">СЧТ-2026-06-0142</div>
+            <div class="ic-date">20.06.2026 · Резерв РЗВ-2026-06-0142</div>
+          </div>
+          <span class="ic-status cancelled"><span class="dot"></span> Отменено</span>
+        </div>
+        <div class="ic-body">
+          <div class="ic-field"><span class="label">Компания</span><span class="value">ИП Петров К.Н.</span></div>
+          <div class="ic-field"><span class="label">Сумма</span><span class="value amount">67 200 ₽</span></div>
+          <div class="ic-field"><span class="label">НДС</span><span class="value">Включён</span></div>
+        </div>
+        <div class="ic-footer">
+          <button class="btn-primary"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Открыть</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
+          <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sc-title">Сводка</div>
+        <div class="sc-stat"><span class="label">Всего счетов</span><span class="value blue">6</span></div>
+        <div class="sc-stat"><span class="label">Ожидает оплаты</span><span class="value orange">1</span></div>
+        <div class="sc-stat"><span class="label">Оплачено</span><span class="value green">3</span></div>
+        <div class="sc-stat"><span class="label">Просрочено</span><span class="value red">1</span></div>
+        <div class="sc-stat"><span class="label">Отменено</span><span class="value" style="color:var(--text-tertiary)">1</span></div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sc-title">Финансы</div>
+        <div class="sc-stat"><span class="label">К оплате</span><span class="value orange">79 000 ₽</span></div>
+        <div class="sc-stat"><span class="label">Оплачено</span><span class="value green">691 300 ₽</span></div>
+        <div class="sc-stat"><span class="label">Просрочено</span><span class="value red">54 300 ₽</span></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+</body>
+</html>

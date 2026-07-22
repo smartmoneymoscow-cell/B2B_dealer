@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Личный кабинет — B2B Dealer Portal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #ffffff;
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #e8eaed;
+    --text-primary: #1a1d23;
+    --text-secondary: #5f6368;
+    --text-tertiary: #9aa0a6;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-light: #eff6ff;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --orange: #ea580c;
+    --orange-bg: #fff7ed;
+    --gray-bg: #f3f4f6;
+    --red: #dc2626;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-xs: 8px;
+    --radius-pill: 100px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px; height: 64px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .header-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; text-decoration: none; color: inherit; }
+  .header-logo .logo-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 14px; }
+  .header-logo .company-name { font-weight: 700; font-size: 16px; letter-spacing: -0.3px; }
+  .header-spacer { flex: 1; }
+  .header-actions { display: flex; align-items: center; gap: 8px; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 50%; border: none; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all 0.15s; position: relative; }
+  .icon-btn:hover { background: var(--bg); }
+  .icon-btn .badge { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; background: #ef4444; border-radius: 50%; border: 2px solid var(--white); }
+  .avatar-sm { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 13px; cursor: pointer; }
+
+  /* ── PAGE ── */
+  .page { max-width: 1120px; margin: 0 auto; padding: 24px 40px 80px; }
+
+  /* ── PROFILE HEADER ── */
+  .profile-header { display: flex; align-items: center; gap: 28px; margin-bottom: 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 32px; box-shadow: var(--shadow); }
+  .ph-avatar { width: 88px; height: 88px; border-radius: 50%; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 28px; flex-shrink: 0; }
+  .ph-info { flex: 1; }
+  .ph-company { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 2px; }
+  .ph-name { font-size: 15px; color: var(--text-secondary); margin-bottom: 10px; }
+  .ph-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ph-badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: var(--radius-pill); font-size: 12px; font-weight: 600; }
+  .ph-badge.id { background: var(--gray-bg); color: var(--text-secondary); }
+  .ph-badge.status { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+  .ph-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ── LAYOUT ── */
+  .layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; }
+  .main-col { display: flex; flex-direction: column; gap: 24px; }
+
+  .card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 28px; box-shadow: var(--shadow); }
+  .card-title { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .card-title .ct-icon { width: 28px; height: 28px; border-radius: 7px; background: var(--bg); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); }
+
+  /* ── INFO GRID ── */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .info-item .label { font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; }
+  .info-item .value { font-size: 14px; font-weight: 500; }
+  .info-item .value.mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; }
+
+  /* ── FIELD ROW ── */
+  .field-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .field-row:last-child { border-bottom: none; }
+  .field-row .fl { font-size: 13px; color: var(--text-secondary); }
+  .field-row .fv { font-size: 14px; font-weight: 500; }
+
+  /* ── MANAGER CARD ── */
+  .manager-block { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .manager-block .mb-photo { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #f093fb, #f5576c); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px; flex-shrink: 0; }
+  .manager-block .mb-name { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+  .manager-block .mb-role { font-size: 13px; color: var(--text-secondary); }
+  .manager-block .mb-phone { font-size: 13px; color: var(--text-tertiary); margin-top: 2px; }
+  .manager-actions { display: flex; gap: 8px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 16px; height: 38px; border: none; border-radius: var(--radius-xs); font-size: 13px; font-weight: 500; font-family: inherit; cursor: pointer; transition: all 0.15s; text-decoration: none; }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-outline { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .btn-ghost { background: transparent; color: var(--text-secondary); border: none; padding: 0 12px; font-size: 13px; }
+  .btn-ghost:hover { color: var(--accent); }
+  .btn-danger { background: transparent; color: var(--red); border: 1px solid #fecaca; }
+  .btn-danger:hover { background: #fef2f2; }
+
+  /* ── SIDEBAR ── */
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .sidebar-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow); }
+  .sidebar-card .sc-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); font-weight: 600; margin-bottom: 16px; }
+
+  .quick-actions { display: flex; flex-direction: column; gap: 8px; }
+  .qa-link { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); font-size: 14px; font-weight: 500; transition: all 0.15s; }
+  .qa-link:hover { border-color: var(--accent); background: var(--accent-light); }
+  .qa-link .qa-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--bg); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); flex-shrink: 0; }
+  .qa-link .qa-arrow { margin-left: auto; color: var(--text-tertiary); }
+
+  .security-actions { display: flex; flex-direction: column; gap: 8px; }
+  .security-actions .btn { width: 100%; justify-content: center; height: 42px; }
+
+  .ico { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ico-sm { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .erp-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: var(--green-bg); border: 1px solid var(--green-border); border-radius: var(--radius-pill); font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: 16px; }
+  .erp-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  @media (max-width: 1000px) {
+    .layout { grid-template-columns: 1fr; }
+    .profile-header { flex-direction: column; text-align: center; }
+    .ph-badges { justify-content: center; }
+    .info-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <a href="index.html" class="header-logo">
+    <div class="logo-icon">DP</div>
+    <span class="company-name">Dealer Portal</span>
+  </a>
+  <div class="header-spacer"></div>
+  <div class="header-actions">
+    <button class="icon-btn" title="Уведомления">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="badge"></span>
+    </button>
+    <div class="avatar-sm">АК</div>
+  </div>
+</header>
+
+<!-- ═══ PAGE ═══ -->
+<main class="page">
+  <div class="erp-badge"><span class="dot"></span> Данные из Bitrix24 и 1С ERP</div>
+
+  <!-- ── PROFILE HEADER ── -->
+  <div class="profile-header">
+    <div class="ph-avatar">АК</div>
+    <div class="ph-info">
+      <div class="ph-company">ООО «СтройМаркет»</div>
+      <div class="ph-name">Кузнецов Алексей Андреевич</div>
+      <div class="ph-badges">
+        <span class="ph-badge id">ID: ДЛ-00482</span>
+        <span class="ph-badge status"><span class="dot"></span> Активный дилер</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="main-col">
+
+      <!-- ── PERSONAL INFO ── -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+          Персональные данные
+        </h2>
+        <div class="field-row"><span class="fl">ФИО</span><span class="fv">Кузнецов Алексей Андреевич</span></div>
+        <div class="field-row"><span class="fl">Email</span><span class="fv">a.kuznetsov@stroymarket.ru</span></div>
+        <div class="field-row"><span class="fl">Телефон</span><span class="fv">+7 (916) 555-12-34</span></div>
+        <div class="field-row"><span class="fl">Логин</span><span class="fv">kuznetsov_aa</span></div>
+        <div class="field-row"><span class="fl">Пароль</span><span class="fv"><button class="btn btn-ghost" style="height:auto;padding:0">Изменить пароль →</button></span></div>
+      </section>
+
+      <!-- ── COMPANY INFO ── -->
+      <section class="card">
+        <h2 class="card-title">
+          <span class="ct-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+          Компания
+        </h2>
+        <div class="field-row"><span class="fl">Название</span><span class="fv">ООО «СтройМаркет»</span></div>
+        <div class="field-row"><span class="fl">Юридический адрес</span><span class="fv">196158, г. Санкт-Петербург, пр. Южный, д. 45, оф. 12</span></div>
+        <div class="field-row"><span class="fl">ИНН</span><span class="fv" style="font-family:monospace;font-size:13px">7805678901</span></div>
+        <div class="field-row"><span class="fl">КПП</span><span class="fv" style="font-family:monospace;font-size:13px">780501001</span></div>
+        <div class="field-row"><span class="fl">Код дилера</span><span class="fv" style="font-family:monospace;font-size:13px">DLR-00482</span></div>
+      </section>
+
+    </div>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="sidebar">
+
+      <!-- ── MANAGER ── -->
+      <div class="sidebar-card">
+        <div class="sc-title">Персональный менеджер</div>
+        <div class="manager-block">
+          <div class="manager-block .mb-photo" style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;flex-shrink:0">МИ</div>
+          <div>
+            <div class="mb-name">Михаил Иванов</div>
+            <div class="mb-role">Менеджер по работе с дилерами</div>
+            <div class="mb-phone">+7 (495) 123-45-67 доб. 201</div>
+          </div>
+        </div>
+        <div class="manager-actions">
+          <button class="btn btn-outline" style="flex:1">
+            <svg class="ico-sm" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Позвонить
+          </button>
+          <button class="btn btn-outline" style="flex:1">
+            <svg class="ico-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
+          </button>
+          <button class="btn btn-primary" style="flex:1">
+            <svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Чат
+          </button>
+        </div>
+      </div>
+
+      <!-- ── QUICK ACTIONS ── -->
+      <div class="sidebar-card">
+        <div class="sc-title">Быстрые действия</div>
+        <div class="quick-actions">
+          <a href="index.html" class="qa-link">
+            <div class="qa-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg></div>
+            Каталог
+            <svg class="qa-arrow ico-sm" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a href="invoices.html" class="qa-link">
+            <div class="qa-icon"><svg class="ico" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            Счета
+            <svg class="qa-arrow ico-sm" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a href="reservation.html" class="qa-link">
+            <div class="qa-icon"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+            Резервы
+            <svg class="qa-arrow ico-sm" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a href="#" class="qa-link">
+            <div class="qa-icon"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+            Сайт компании
+            <svg class="qa-arrow ico-sm" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── SECURITY ── -->
+      <div class="sidebar-card">
+        <div class="sc-title">Безопасность</div>
+        <div class="security-actions">
+          <button class="btn btn-outline">
+            <svg class="ico-sm" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Изменить пароль
+          </button>
+          <button class="btn btn-danger">
+            <svg class="ico-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            Выйти из системы
+          </button>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</main>
+
+</body>
+</html>

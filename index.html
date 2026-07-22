@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B2B Dealer Portal</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --white: #ffffff;
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --border: #e8eaed;
+    --text-primary: #1a1d23;
+    --text-secondary: #5f6368;
+    --text-tertiary: #9aa0a6;
+    --accent: #2563eb;
+    --accent-light: #eff6ff;
+    --green: #16a34a;
+    --green-bg: #f0fdf4;
+    --orange: #ea580c;
+    --orange-bg: #fff7ed;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-pill: 100px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .header-logo .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .header-logo .company-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--text-primary);
+    letter-spacing: -0.3px;
+  }
+
+  .header-search {
+    flex: 1;
+    max-width: 480px;
+    position: relative;
+  }
+
+  .header-search input {
+    width: 100%;
+    height: 40px;
+    padding: 0 16px 0 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--bg);
+    color: var(--text-primary);
+    transition: all 0.2s;
+    outline: none;
+  }
+
+  .header-search input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    background: var(--white);
+  }
+
+  .header-search input::placeholder { color: var(--text-tertiary); }
+
+  .header-search .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  .icon-btn:hover { background: var(--bg); color: var(--text-primary); }
+
+  .icon-btn .badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    border: 2px solid var(--white);
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN CONTAINER ── */
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 32px 40px 80px;
+  }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+
+  .hero-main {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .hero-main h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+
+  .hero-main .subtitle {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .contact-item .ci-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--text-secondary);
+  }
+
+  .contact-item .ci-label {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  .contact-item .ci-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: none;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+  }
+
+  .btn-primary:hover { background: #1d4ed8; box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
+
+  .btn-secondary {
+    background: var(--bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover { background: #f1f3f4; }
+
+  /* Manager Card */
+  .manager-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 28px 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .manager-card .mc-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+    margin-bottom: 20px;
+  }
+
+  .manager-card .mc-photo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .manager-card .mc-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .manager-card .mc-role {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 8px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-outline:hover { background: var(--accent-light); }
+
+  /* ── CATEGORIES ── */
+  .categories-section {
+    margin-bottom: 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .section-link {
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .section-link:hover { text-decoration: underline; }
+
+  .categories-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+
+  .categories-scroll::-webkit-scrollbar { display: none; }
+
+  .cat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+
+  .cat-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .cat-pill.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .cat-pill .cat-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* ── FILTERS BAR ── */
+  .filters-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .filter-select {
+    height: 40px;
+    padding: 0 36px 0 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239aa0a6' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.15s;
+  }
+
+  .filter-select:focus { border-color: var(--accent); }
+
+  .toggle-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .toggle {
+    width: 40px;
+    height: 22px;
+    background: #d1d5db;
+    border-radius: 11px;
+    position: relative;
+    transition: background 0.2s;
+  }
+
+  .toggle.on { background: var(--accent); }
+
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+
+  .toggle.on::after { transform: translateX(18px); }
+
+  .filter-spacer { flex: 1; }
+
+  .results-count {
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+
+  /* ── PRODUCT GRID ── */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .product-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+  }
+
+  .product-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    border-color: #d0d5dd;
+  }
+
+  .product-card .pc-image {
+    width: 100%;
+    height: 200px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .product-card .pc-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-card .pc-image .placeholder-img {
+    font-size: 48px;
+    opacity: 0.3;
+  }
+
+  .product-card .pc-body {
+    padding: 20px;
+  }
+
+  .product-card .pc-sku {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-tertiary);
+    margin-bottom: 6px;
+  }
+
+  .product-card .pc-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .product-card .pc-specs {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .product-card .pc-footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .product-card .pc-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: -0.5px;
+  }
+
+  .product-card .pc-price .currency {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .stock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .stock-badge.in-stock {
+    background: var(--green-bg);
+    color: var(--green);
+  }
+
+  .stock-badge.low-stock {
+    background: var(--orange-bg);
+    color: var(--orange);
+  }
+
+  .stock-badge .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .product-card .pc-action {
+    padding: 0 20px 20px;
+  }
+
+  .btn-detail {
+    width: 100%;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--white);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-detail:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  /* ── SVG ICONS (inline) ── */
+  .ico { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .ico-sm { width: 16px; height: 16px; }
+  .ico-lg { width: 20px; height: 20px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1200px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .container { padding: 24px 20px 60px; }
+    .header { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <div class="header-logo">
+    <div class="logo-icon">SM</div>
+    <span class="company-name">SmartMoney</span>
+  </div>
+
+  <div class="header-search">
+    <svg class="search-icon ico ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" placeholder="Search products…">
+  </div>
+
+  <div class="header-actions">
+    <button class="icon-btn" title="Notifications">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="badge"></span>
+    </button>
+    <div class="avatar" title="Личный кабинет">АК</div>
+  </div>
+</header>
+
+<!-- ═══ MAIN ═══ -->
+<main class="container">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-main">
+      <h1>Добро пожаловать, Алексей</h1>
+      <p class="subtitle">Дилерский портал компании SmartMoney — строительные материалы</p>
+
+      <div class="contact-grid">
+        <div class="contact-item">
+          <div class="ci-icon">
+            <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div>
+            <div class="ci-label">Телефон</div>
+            <div class="ci-value">+7 (495) 123-45-67</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">
+            <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="ci-label">Email</div>
+            <div class="ci-value">info@smartmoney.ru</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">
+            <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="ci-label">Адрес</div>
+            <div class="ci-value">Москва, ул. Строителей, 15</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">
+            <svg class="ico ico-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div>
+            <div class="ci-label">Сайт</div>
+            <div class="ci-value">smartmoney.ru</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-buttons">
+        <a href="#" class="btn btn-primary">
+          <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Перейти на сайт
+        </a>
+        <a href="#" class="btn btn-secondary">
+          <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Связаться с менеджером
+        </a>
+      </div>
+    </div>
+
+    <div class="manager-card">
+      <div class="mc-label">Ваш менеджер</div>
+      <div class="mc-photo">МИ</div>
+      <div class="mc-name">Михаил Иванов</div>
+      <div class="mc-role">Персональный менеджер</div>
+      <button class="btn-outline">
+        <svg class="ico ico-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Написать
+      </button>
+    </div>
+  </section>
+
+  <!-- ── CATEGORIES ── -->
+  <section class="categories-section">
+    <div class="section-header">
+      <h2 class="section-title">Категории</h2>
+      <a href="#" class="section-link">Все категории →</a>
+    </div>
+    <div class="categories-scroll">
+      <button class="cat-pill active"><span class="cat-icon">🏗️</span> Все</button>
+      <button class="cat-pill"><span class="cat-icon">🏠</span> Кровля</button>
+      <button class="cat-pill"><span class="cat-icon">🧱</span> Фасад</button>
+      <button class="cat-pill"><span class="cat-icon">💧</span> Водосток</button>
+      <button class="cat-pill"><span class="cat-icon">🔩</span> Крепёж</button>
+      <button class="cat-pill"><span class="cat-icon">🪟</span> Аксессуары</button>
+      <button class="cat-pill"><span class="cat-icon">🧊</span> Утеплитель</button>
+      <button class="cat-pill"><span class="cat-icon">🪨</span> Камень</button>
+      <button class="cat-pill"><span class="cat-icon">🎨</span> Краски</button>
+    </div>
+  </section>
+
+  <!-- ── FILTERS ── -->
+  <div class="filters-bar">
+    <select class="filter-select">
+      <option>Сортировка: Сначала популярные</option>
+      <option>Цена: по возрастанию</option>
+      <option>Цена: по убыванию</option>
+      <option>Название: А–Я</option>
+    </select>
+
+    <label class="toggle-wrap" onclick="this.querySelector('.toggle').classList.toggle('on')">
+      <div class="toggle on"></div>
+      Только в наличии
+    </label>
+
+    <span class="filter-spacer"></span>
+    <span class="results-count">Показано 8 из 247 товаров</span>
+  </div>
+
+  <!-- ── PRODUCT GRID ── -->
+  <div class="product-grid">
+
+    <!-- Card 1 -->
+    <div class="product-card">
+      <div class="pc-image"><div class="placeholder-img">🏠</div></div>
+      <div class="pc-body">
+        <div class="pc-sku">ART-00124</div>
+        <div class="pc-name">Металлочерепица Монтеррей 0.5 мм</div>
+        <div class="pc-specs">Полиэстер, толщина 0.5 мм, высота волны 25 мм</div>
+        <div class="pc-footer">
+          <div class="pc-price">1 240 <span class="currency">₽</span></div>
+          <span class="stock-badge in-stock"><span class="dot"></span> 342 шт</span>
+        </div>
+      </div>
+      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="product-card">
+      <div class="pc-image"><div class="placeholder-img">🧱</div></div>
+      <div class="pc-body">
+        <div class="pc-sku">ART-00891</div>
+        <div class="pc-name">Сайдинг виниловый Блок-Хаус</div>
+        <div class="pc-specs">3.66 м, морозостойкий, 24 цвета</div>
+        <div class="pc-footer">
+          <div class="pc-price">487 <span class="currency">₽</span></div>
+          <span class="stock-badge in-stock"><span class="dot"></span> 1 205 шт</span>
+        </div>
+      </div>
+      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="product-card">
+      <div class="pc-image"><div class="placeholder-img">💧</div></div>
+      <div class="pc-body">
+        <div class="pc-sku">ART-00347</div>
+        <div class="pc-name">Водосточная система 125/90</div>
+        <div class="pc-specs">ПВХ, полукруглая, серая, комплект</div>
+        <div class="pc-footer">
+          <div class="pc-price">3 890 <span class="currency">₽</span></div>
+          <span class="stock-badge in-stock"><span class="dot"></span> 86 компл</span>
+        </div>
+      </div>
+      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="product-card">
+      <div class="pc-image"><div class="placeholder-img">🔩</div></div>
+      <div class="pc-body">
+        <div class="pc-sku">ART-01102</div>
+        <div class="pc-name">Саморез кровельный 4.8×35</div>
+        <div class="pc-specs">EPDM прокладка, оцинкованный, 1000 шт</div>
+        <div class="pc-footer">
+          <div class="pc-price">1 650 <span class="currency">₽</span></div>
+          <span class="stock-badge in-stock"><span class="dot"></span> 5 400 уп</span>
+        </div>
+      </div>
+      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="product-card">
+      <div class="pc-image"><div class="placeholder-img">🧊</div></div>
+      <div class="pc-body">
+        <div class="pc-sku">ART-00556</div>
+        <div class="pc-name">Утеплитель ROCKWOOL Фасад Баттс</div>
+        <div class="pc-specs">100 мм, 0.036 Вт/м·К, негорючий</div>
+        <div class="pc-footer">
+          <div class="pc-price">2 190 <span class="currency">₽</span></div>
+          <span class="stock-badge low-stock"><span class="dot"></span> 18 шт</span>
+        </div>
+      </div>
+      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="product-card">
+      <div class="pc-image"><div class="placeholder-img">🪟</div></div>
+      <div class="pc-body">
+        <div class="pc-sku">ART-02210</div>
+        <div class="pc-name">Мансардное окно FAKRO FTS-V U2</div>
+        <div class="pc-specs">78×118 см, стеклопакет 24 мм, Pine</div>
+        <div class="pc-footer">
+          <div class="pc-price">18 700 <span class="currency">₽</span></div>
+          <span class="stock-badge in-stock"><span class="dot"></span> 24 шт</span>
+        </div>
+      </div>
+      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+    </div>
+
+    <!-- Card 7 -->
+    <div class="product-card">
+      <div class="pc-image"><div class="placeholder-img">🪨</div></div>
+      <div class="pc-body">
+        <div class="pc-sku">ART-00789</div>
+        <div class="pc-name">Профнастил С-8 оцинкованный</div>
+        <div class="pc-specs">0.45 мм, полезная ширина 1100 мм</div>
+        <div class="pc-footer">
+          <div class="pc-price">390 <span class="currency">₽</span></div>
+          <span class="stock-badge in-stock"><span class="dot"></span> 870 м²</span>
+        </div>
+      </div>
+      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+    </div>
+
+    <!-- Card 8 -->
+    <div class="product-card">
+      <div class="pc-image"><div class="placeholder-img">🎨</div></div>
+      <div class="pc-body">
+        <div class="pc-sku">ART-03301</div>
+        <div class="pc-name">Гидроизоляция Техноэласт ЭПП</div>
+        <div class="pc-specs">4 мм, наплавляемый, рулон 10 м²</div>
+        <div class="pc-footer">
+          <div class="pc-price">1 520 <span class="currency">₽</span></div>
+          <span class="stock-badge in-stock"><span class="dot"></span> 156 рул</span>
+        </div>
+      </div>
+      <div class="pc-action"><button class="btn-detail">Подробнее</button></div>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>

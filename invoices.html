@@ -127,8 +127,23 @@ a.tb-item:hover { color: #ffffff; }
   .main-col { display: flex; flex-direction: column; gap: 16px; }
 
   /* ── INVOICE CARD ── */
-  .invoice-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow); transition: all 0.15s; cursor: pointer; }
+  .invoice-card { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 24px; box-shadow: var(--shadow); transition: all 0.15s; cursor: pointer; display: flex; gap: 20px; }
   .invoice-card:hover { box-shadow: var(--shadow-md); border-color: #d0d5dd; }
+  .invoice-card.status-awaiting { border-left: 4px solid var(--orange); }
+  .invoice-card.status-paid { border-left: 4px solid var(--green); }
+  .invoice-card.status-overdue { border-left: 4px solid var(--red); }
+  .invoice-card.status-cancelled { border-left: 4px solid var(--text-tertiary); }
+
+  .ic-preview { width: 80px; height: 100px; border-radius: var(--radius-sm); background: var(--bg); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; position: relative; overflow: hidden; }
+  .ic-preview .ic-doc-icon { width: 36px; height: 36px; color: var(--text-tertiary); margin-bottom: 4px; }
+  .ic-preview .ic-doc-ext { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-tertiary); background: var(--border); padding: 1px 6px; border-radius: 3px; }
+  .ic-preview .ic-doc-stripe { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; }
+  .ic-preview .ic-doc-stripe.orange { background: var(--orange); }
+  .ic-preview .ic-doc-stripe.green { background: var(--green); }
+  .ic-preview .ic-doc-stripe.red { background: var(--red); }
+  .ic-preview .ic-doc-stripe.gray { background: var(--text-tertiary); }
+
+  .ic-content { flex: 1; min-width: 0; }
 
   .ic-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
   .ic-number { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; }
@@ -181,6 +196,12 @@ a.tb-item:hover { color: #ffffff; }
     .sidebar { position: static; }
     .ic-body { grid-template-columns: 1fr 1fr; }
   }
+  @media (max-width: 640px) {
+    .invoice-card { flex-direction: column; }
+    .ic-preview { width: 100%; height: 60px; flex-direction: row; gap: 10px; }
+    .ic-doc-icon { width: 24px; height: 24px; margin-bottom: 0; }
+    .ic-doc-stripe { height: 100%; width: 3px; bottom: auto; top: 0; right: auto; }
+  }
 </style>
 </head>
 <body>
@@ -195,7 +216,19 @@ a.tb-item:hover { color: #ffffff; }
     <svg class="search-icon ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     <input type="text" placeholder="Поиск товаров…">
   </div>
+  <nav class="header-nav">
+    <a href="index.html">Каталог</a>
+    <a href="invoices.html" class="active">Счета</a>
+    <a href="reservation.html">Резервы</a>
+    <a href="account.html">Кабинет</a>
+  </nav>
+
   <div class="header-actions">
+    <a href="https://dealerportal.ru" target="_blank" rel="noopener" class="btn-site" title="Перейти на сайт компании">
+      <span class="btn-site-text">Перейти на сайт</span>
+      <svg class="ico-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+    <div class="action-divider"></div>
     <button class="icon-btn" title="Уведомления">
       <svg class="ico" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span class="badge"></span>
@@ -239,7 +272,13 @@ a.tb-item:hover { color: #ffffff; }
     <div class="main-col">
 
       <!-- ── INVOICE 1 ── -->
-      <div class="invoice-card">
+      <div class="invoice-card status-awaiting">
+        <div class="ic-preview">
+          <svg class="ic-doc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span class="ic-doc-ext">PDF</span>
+          <div class="ic-doc-stripe orange"></div>
+        </div>
+        <div class="ic-content">
         <div class="ic-header">
           <div>
             <div class="ic-number">СЧТ-2026-07-0481</div>
@@ -257,10 +296,17 @@ a.tb-item:hover { color: #ffffff; }
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
         </div>
+        </div><!-- /ic-content -->
       </div>
 
       <!-- ── INVOICE 2 ── -->
-      <div class="invoice-card">
+      <div class="invoice-card status-paid">
+        <div class="ic-preview">
+          <svg class="ic-doc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span class="ic-doc-ext">PDF</span>
+          <div class="ic-doc-stripe green"></div>
+        </div>
+        <div class="ic-content">
         <div class="ic-header">
           <div>
             <div class="ic-number">СЧТ-2026-07-0356</div>
@@ -278,10 +324,17 @@ a.tb-item:hover { color: #ffffff; }
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
         </div>
+        </div><!-- /ic-content -->
       </div>
 
       <!-- ── INVOICE 3 ── -->
-      <div class="invoice-card">
+      <div class="invoice-card status-paid">
+        <div class="ic-preview">
+          <svg class="ic-doc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span class="ic-doc-ext">PDF</span>
+          <div class="ic-doc-stripe green"></div>
+        </div>
+        <div class="ic-content">
         <div class="ic-header">
           <div>
             <div class="ic-number">СЧТ-2026-07-0298</div>
@@ -299,10 +352,17 @@ a.tb-item:hover { color: #ffffff; }
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
         </div>
+        </div><!-- /ic-content -->
       </div>
 
       <!-- ── INVOICE 4 ── -->
-      <div class="invoice-card">
+      <div class="invoice-card status-overdue">
+        <div class="ic-preview">
+          <svg class="ic-doc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span class="ic-doc-ext">PDF</span>
+          <div class="ic-doc-stripe red"></div>
+        </div>
+        <div class="ic-content">
         <div class="ic-header">
           <div>
             <div class="ic-number">СЧТ-2026-07-0215</div>
@@ -320,10 +380,17 @@ a.tb-item:hover { color: #ffffff; }
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
         </div>
+        </div><!-- /ic-content -->
       </div>
 
       <!-- ── INVOICE 5 ── -->
-      <div class="invoice-card">
+      <div class="invoice-card status-paid">
+        <div class="ic-preview">
+          <svg class="ic-doc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span class="ic-doc-ext">PDF</span>
+          <div class="ic-doc-stripe green"></div>
+        </div>
+        <div class="ic-content">
         <div class="ic-header">
           <div>
             <div class="ic-number">СЧТ-2026-06-0189</div>
@@ -341,10 +408,17 @@ a.tb-item:hover { color: #ffffff; }
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
         </div>
+        </div><!-- /ic-content -->
       </div>
 
       <!-- ── INVOICE 6 ── -->
-      <div class="invoice-card">
+      <div class="invoice-card status-cancelled">
+        <div class="ic-preview">
+          <svg class="ic-doc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span class="ic-doc-ext">PDF</span>
+          <div class="ic-doc-stripe gray"></div>
+        </div>
+        <div class="ic-content">
         <div class="ic-header">
           <div>
             <div class="ic-number">СЧТ-2026-06-0142</div>
@@ -362,6 +436,7 @@ a.tb-item:hover { color: #ffffff; }
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> PDF</button>
           <button class="btn-outline"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Отправить</button>
         </div>
+        </div><!-- /ic-content -->
       </div>
 
     </div>
